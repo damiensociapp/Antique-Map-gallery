@@ -102,8 +102,11 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
 .vwr{position:fixed;inset:0;z-index:100000;background:rgba(20,18,16,.965);display:none;flex-direction:column}
 .vwr.open{display:flex}
 .vwr-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 22px;color:var(--parchment-2);border-bottom:1px solid rgba(203,174,121,.22)}
+.vwr-meta{max-width:min(62ch,54%)}
 .vwr-meta b{font-family:"Fraunces",serif;font-weight:400;font-size:18px;display:block;line-height:1.1}
-.vwr-meta span{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13.5px;color:var(--gold-soft)}
+.vwr-meta span{font-family:"Inter",sans-serif;font-size:12px;letter-spacing:.02em;color:var(--gold-soft)}
+.vwr-meta em{display:block;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13.5px;color:rgba(247,242,230,.62);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:820px){.vwr-meta em{display:none}}
 .vwr-ctrl{display:flex;align-items:center;gap:8px}
 .vwr-ctrl button{background:transparent;color:var(--parchment-2);border:1px solid rgba(203,174,121,.4);border-radius:6px;min-width:40px;height:40px;padding:0 12px;font-size:17px;line-height:1;cursor:pointer;font-family:"Inter";transition:.2s var(--ease)}
 .vwr-ctrl button:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
@@ -254,7 +257,7 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
 <!-- ============ MAP ZOOM VIEWER ============ -->
 <div class="vwr" id="vwr" aria-hidden="true" role="dialog" aria-label="Map viewer">
   <div class="vwr-bar">
-    <div class="vwr-meta"><b id="vwrTitle"></b><span id="vwrMaker"></span></div>
+    <div class="vwr-meta"><b id="vwrTitle"></b><span id="vwrMaker"></span><em id="vwrDesc"></em></div>
     <div class="vwr-ctrl">
       <button id="vwrOut" aria-label="Zoom out">–</button>
       <span id="vwrPct">100%</span>
@@ -272,27 +275,20 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
 
 <script>
 /* ============ STOCK DATA ============ */
+/* Every entry is a real, identified public-domain map; prices are indicative
+   market estimates (adjust freely, or switch to "on request"). */
 const STOCK = [
-  {t:"Nova Totius Terrarum Orbis",r:"World",mk:"J. Blaeu · Amsterdam",y:1662,c:17,price:4850,kind:"archipelago",mon:1,tag:"New"},
-  {t:"Europa Recens Descripta",r:"Europe",mk:"W. Hondius, hand-coloured",y:1631,c:17,price:2300,kind:"continent",tag:"New"},
-  {t:"Americae Nova Tabula",r:"Americas",mk:"Ortelius · Antwerp",y:1595,c:16,price:6200,kind:"coast",mon:1,tag:"Rare"},
-  {t:"India Orientalis",r:"Asia",mk:"Jansson · portolan",y:1652,c:17,price:3100,kind:"coast"},
-  {t:"Africae Descriptio",r:"Africa",mk:"Mercator / Hondius",y:1619,c:17,price:2750,kind:"continent",mon:1},
-  {t:"Planisphaerium Coeleste",r:"Celestial",mk:"F. de Wit",y:1670,c:17,price:5400,kind:"archipelago",status:"sold"},
-  {t:"Typus Orbis Terrarum",r:"World",mk:"Ortelius, first state",y:1570,c:16,price:8900,kind:"archipelago",mon:1,tag:"Rare"},
-  {t:"Britannia Insularum",r:"Europe",mk:"J. Speed",y:1611,c:17,price:1950,kind:"coast"},
-  {t:"Virginiae Item et Floridae",r:"Americas",mk:"De Bry / Le Moyne",y:1591,c:16,price:7400,kind:"coast",status:"reserved"},
-  {t:"Tabula Asiae",r:"Asia",mk:"S. Münster · woodcut",y:1554,c:16,price:1650,kind:"continent"},
-  {t:"Aegyptus Antiqua",r:"Africa",mk:"G. Delisle",y:1707,c:18,price:1200,kind:"coast"},
-  {t:"Nova Belgica et Anglia",r:"Americas",mk:"N. Visscher",y:1685,c:17,price:9600,kind:"coast",mon:1,tag:"Rare"},
-  {t:"Carte de l'Empire de Perse",r:"Asia",mk:"J.B. d'Anville",y:1751,c:18,price:980,kind:"continent"},
-  {t:"L'Afrique dressée",r:"Africa",mk:"G. de l'Isle",y:1722,c:18,price:1450,kind:"continent"},
-  {t:"Hemisphaerium Stellatum",r:"Celestial",mk:"A. Cellarius",y:1660,c:17,price:6800,kind:"archipelago",mon:1,tag:"New"},
-  {t:"Nieuwe Wereldkaart",r:"World",mk:"F. de Wit",y:1668,c:17,price:5200,kind:"archipelago"},
-  {t:"Scandinavia et Baltia",r:"Europe",mk:"J. Janssonius",y:1640,c:17,price:1750,kind:"coast"},
-  {t:"Insulae Indiae Orientalis",r:"Asia",mk:"P. Bertius",y:1616,c:17,price:2400,kind:"coast",status:"sold"},
-  {t:"Regni Mexicani Tabula",r:"Americas",mk:"H. Moll",y:1720,c:18,price:1350,kind:"coast"},
-  {t:"Terra Sancta",r:"Asia",mk:"C. Adrichom",y:1590,c:16,price:3300,kind:"continent",tag:"Rare"},
+  {t:"Nova et Accuratissima Terrarum Orbis Tabula",r:"World",mk:"Joan Blaeu · Amsterdam",y:1664,c:17,price:12500,kind:"archipelago",mon:1,tag:"Rare",img:"Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg",desc:"Blaeu's double-hemisphere world map, framed by allegories of the four seasons and the four elements — a high point of Dutch Golden-Age cartography."},
+  {t:"Typus Orbis Terrarum",r:"World",mk:"Abraham Ortelius · Antwerp",y:1570,c:16,price:8500,kind:"archipelago",mon:1,tag:"Iconic",img:"OrteliusWorldMap1570.jpg",desc:"The world map that opened the first modern atlas, on an oval projection framed by Cicero's meditation on the smallness of empire."},
+  {t:"Nova Totius Terrarum Orbis",r:"World",mk:"Henricus Hondius · Amsterdam",y:1630,c:17,price:7900,kind:"archipelago",img:"Nova totius Terrarum Orbis geographica ac hydrographica tabula (Hendrik Hondius).jpg",desc:"The celebrated twin-hemisphere world map with corner portraits of Julius Caesar, Ptolemy, Mercator and Jodocus Hondius."},
+  {t:"Europa Recens Descripta",r:"Europe",mk:"Willem Blaeu · Amsterdam",y:1644,c:17,price:2600,kind:"continent",tag:"New",img:"1644 Europa Recens Blaeu.jpg",desc:"A carte-à-figures of Europe, its borders lined with engraved city views and figures in regional costume."},
+  {t:"Europae",r:"Europe",mk:"Abraham Ortelius · Antwerp",y:1572,c:16,price:1650,kind:"continent",status:"sold",img:"1572 Europa Ortelius.jpg",desc:"Ortelius's elegant map of Europe from the Theatrum Orbis Terrarum."},
+  {t:"Americae Sive Novi Orbis, Nova Descriptio",r:"Americas",mk:"Abraham Ortelius · Antwerp",y:1579,c:16,price:5900,kind:"coast",mon:1,tag:"Rare",img:"Americae Sive Novi Orbis, Nova Descriptio, 1579.jpg",desc:"One of the most influential early maps of the Americas, with the bulging South-American coastline of sixteenth-century knowledge."},
+  {t:"Americae Sive Novi Orbis — later state",r:"Americas",mk:"Abraham Ortelius · Antwerp",y:1595,c:16,price:4800,kind:"coast",status:"reserved",img:"Theatrum Orbis Terrarum - Americae sive Novi Orbis, Nova Descriptio.jpg",desc:"A later Theatrum-edition state of Ortelius's New World map, with revised southern coasts."},
+  {t:"Asiae Nova Descriptio",r:"Asia",mk:"Abraham Ortelius · Antwerp",y:1570,c:16,price:1900,kind:"coast",img:"1570 Ortelius Map of Asia (first edition) - Geographicus - AsiaeNovaDescriptio-ortelius.jpg",desc:"Ortelius's foundational map of Asia, from the first edition of the Theatrum Orbis Terrarum."},
+  {t:"Africae Tabula Nova",r:"Africa",mk:"Abraham Ortelius · Antwerp",y:1570,c:16,price:1750,kind:"continent",img:"Bodleian Libraries, Africae Tabula Nova, 1570.jpg",desc:"An early separately-issued atlas map of Africa, richly engraved with lions, elephants and imagined interior kingdoms."},
+  {t:"Planisphaerium Arateum",r:"Celestial",mk:"Andreas Cellarius · Amsterdam",y:1660,c:17,price:4200,kind:"archipelago",mon:1,tag:"New",img:"Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg",desc:"A star chart from Cellarius's Harmonia Macrocosmica — widely held to be the most beautiful celestial atlas ever printed."},
+  {t:"Scenographia Systematis Copernicani",r:"Celestial",mk:"Andreas Cellarius · Amsterdam",y:1660,c:17,price:5600,kind:"archipelago",tag:"Rare",img:"Cellarius Harmonia Macrocosmica - Scenographia Systematis Copernicani.jpg",desc:"Cellarius's iconic plate of the Copernican heliocentric system, wreathed in cherubs."},
 ];
 
 /* Real public-domain map photos (Wikimedia Commons, Special:FilePath). Each <img> falls
@@ -321,11 +317,11 @@ const WM={
 function fp(name,w){const u=encodeURIComponent(name.replace(/ /g,"_"));const d=WM[name];return d?`https://upload.wikimedia.org/wikipedia/commons/thumb/${d}/${u}/${w||800}px-${u}`:`https://commons.wikimedia.org/wiki/Special:FilePath/${u}?width=${w||800}`;}
 function fpAlt(name,w){return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(name.replace(/ /g,"_"))+"?width="+(w||800);}
 function photoTag(name,w,cls,alt){return `<img class="${cls}" src="${fp(name,w)}" data-fb="${fpAlt(name,w)}" alt="${alt}" loading="lazy" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.removeAttribute('data-fb')}else{this.remove()}">`;}
-(function assignPhotos(){const cnt={};STOCK.forEach(m=>{const a=PHOTOS[m.r]||[];if(!a.length)return;cnt[m.r]=(cnt[m.r]||0);m.img=a[cnt[m.r]%a.length];cnt[m.r]++;});})();
+(function assignPhotos(){const cnt={};STOCK.forEach(m=>{if(m.img)return;const a=PHOTOS[m.r]||[];if(!a.length)return;cnt[m.r]=(cnt[m.r]||0);m.img=a[cnt[m.r]%a.length];cnt[m.r]++;});})();
 
 const REGIONS=["World","Europe","Americas","Asia","Africa","Celestial"];
-const CENTURIES=[{k:16,l:"16th c."},{k:17,l:"17th c."},{k:18,l:"18th c."}];
-const PRICES=[{k:"a",l:"Under € 2,000",f:p=>p<2000},{k:"b",l:"€ 2,000–5,000",f:p=>p>=2000&&p<5000},{k:"c",l:"€ 5,000 +",f:p=>p>=5000}];
+const CENTURIES=[{k:16,l:"16th c."},{k:17,l:"17th c."}];
+const PRICES=[{k:"a",l:"Under € 2,000",f:p=>p<2000},{k:"b",l:"€ 2,000–6,000",f:p=>p>=2000&&p<6000},{k:"c",l:"€ 6,000 +",f:p=>p>=6000}];
 const STATUSES=[{k:"available",l:"Available"},{k:"reserved",l:"Reserved"},{k:"sold",l:"Sold"}];
 
 const state={region:new Set(),century:new Set(),price:new Set(),status:new Set(),sort:"feat"};
@@ -398,7 +394,7 @@ function render(){
   if(!list.length){grid.innerHTML="";empty.style.display="block";return;}
   empty.style.display="none";
   grid.innerHTML=list.map((m,i)=>{const st=statusOf(m);const sold=st==="sold";const seed=STOCK.indexOf(m)+1;
-    return `<article class="card" style="animation-delay:${Math.min(i*35,420)}ms" data-img="${m.img||''}" data-t="${m.t}" data-mk="${m.mk} · ${m.r}, ${m.y}">
+    return `<article class="card" style="animation-delay:${Math.min(i*35,420)}ms" data-img="${m.img||''}" data-t="${m.t}" data-mk="${m.mk}, ${m.y}" data-desc="${(m.desc||'').replace(/"/g,'&quot;')}">
       <div class="card-media" data-zoom>
         ${sold?'<span class="card-tag sold">Sold</span>':st==="reserved"?'<span class="card-tag reserved">Reserved</span>':m.tag?`<span class="card-tag">${m.tag}</span>`:''}
         ${mapSVG(seed,m.kind,m.mon)}
@@ -424,7 +420,7 @@ buildChips();render();
 (function(){
   const vwr=document.getElementById('vwr'),stage=document.getElementById('vwrStage'),canvas=document.getElementById('vwrCanvas'),
         load=document.getElementById('vwrLoad'),pct=document.getElementById('vwrPct'),
-        elTitle=document.getElementById('vwrTitle'),elMaker=document.getElementById('vwrMaker');
+        elTitle=document.getElementById('vwrTitle'),elMaker=document.getElementById('vwrMaker'),elDesc=document.getElementById('vwrDesc');
   let scale=1,minScale=1,maxScale=8,tx=0,ty=0,natW=0,natH=0,pendingSVG='';
   function apply(){canvas.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';pct.textContent=Math.round(scale/minScale*100)+'%';}
   function fit(){const sw=stage.clientWidth,sh=stage.clientHeight;if(!natW||!natH){minScale=scale=1;tx=ty=0;apply();return;}
@@ -435,7 +431,7 @@ buildChips();render();
     el.onload=function(){natW=el.naturalWidth;natH=el.naturalHeight;canvas.innerHTML='';canvas.appendChild(el);load.textContent='';fit();};
     el.onerror=function(){if(el.dataset.fb){el.src=el.dataset.fb;el.removeAttribute('data-fb');}else{showSVG();}};
     if(o.fb)el.dataset.fb=o.fb;el.alt=elTitle.textContent;el.src=o.src;}
-  window.openViewer=function(imgName,title,maker,svg){elTitle.textContent=title||'';elMaker.textContent=maker||'';pendingSVG=svg||'';
+  window.openViewer=function(imgName,title,maker,svg,desc){elTitle.textContent=title||'';elMaker.textContent=maker||'';if(elDesc)elDesc.textContent=desc||'';pendingSVG=svg||'';
     canvas.innerHTML='';natW=natH=0;scale=1;tx=ty=0;load.textContent='';
     vwr.classList.add('open');vwr.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
     if(imgName&&typeof fp==='function'){loadImg({src:fp(imgName,3000),fb:(typeof fpAlt==='function')?fpAlt(imgName,3000):''});}else{showSVG();}};
@@ -461,7 +457,7 @@ buildChips();render();
     const trg=e.target.closest('[data-zoom]');if(!trg)return;
     const card=trg.closest('.card');if(!card)return;e.preventDefault();
     const svg=card.querySelector('.card-media > svg');
-    openViewer(card.dataset.img,card.dataset.t,card.dataset.mk,svg?svg.outerHTML:'');
+    openViewer(card.dataset.img,card.dataset.t,card.dataset.mk,svg?svg.outerHTML:'',card.dataset.desc);
   });
 })();
 </script>

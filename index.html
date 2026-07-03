@@ -160,8 +160,11 @@ body::before{
 .vwr{position:fixed;inset:0;z-index:100000;background:rgba(20,18,16,.965);display:none;flex-direction:column;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
 .vwr.open{display:flex}
 .vwr-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 22px;color:var(--parchment-2);border-bottom:1px solid rgba(203,174,121,.22)}
+.vwr-meta{max-width:min(62ch,54%)}
 .vwr-meta b{font-family:"Fraunces",serif;font-weight:400;font-size:18px;display:block;line-height:1.1}
-.vwr-meta span{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13.5px;color:var(--gold-soft)}
+.vwr-meta span{font-family:"Inter",sans-serif;font-size:12px;letter-spacing:.02em;color:var(--gold-soft)}
+.vwr-meta em{display:block;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13.5px;color:rgba(247,242,230,.62);margin-top:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:820px){.vwr-meta em{display:none}}
 .vwr-ctrl{display:flex;align-items:center;gap:8px}
 .vwr-ctrl button{background:transparent;color:var(--parchment-2);border:1px solid rgba(203,174,121,.4);border-radius:6px;min-width:40px;height:40px;padding:0 12px;font-size:17px;line-height:1;cursor:pointer;font-family:"Inter";transition:.2s var(--ease)}
 .vwr-ctrl button:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
@@ -536,16 +539,16 @@ body::before{
       <div class="showcase-map rv" id="worldMap"></div>
       <div class="showcase-text rv rv-d1">
         <div class="sec-head" style="grid-template-columns:auto 1fr"><span class="eyebrow">Piece of the month</span><span class="hr"></span></div>
-        <h2 style="margin-top:22px">Nova Totius <em>Terrarum Orbis</em></h2>
-        <p class="showcase-lead">Willem Blaeu's double-hemisphere world map, Amsterdam, 1662 — copper-engraved and hand-coloured, framed by allegories of the elements. One of the most celebrated images of the age of exploration.</p>
+        <h2 style="margin-top:22px">Nova et Accuratissima <em>Terrarum Orbis Tabula</em></h2>
+        <p class="showcase-lead">Joan Blaeu's double-hemisphere world map, Amsterdam, 1664 — copper-engraved and hand-coloured, its corners crowned with allegories of the four seasons and the four elements. A high point of Dutch Golden-Age cartography.</p>
         <dl class="spec">
-          <div><dt>Cartographer</dt><dd>Willem Janszoon Blaeu</dd></div>
-          <div><dt>Date & place</dt><dd>1662 · Amsterdam</dd></div>
+          <div><dt>Cartographer</dt><dd>Joan Blaeu</dd></div>
+          <div><dt>Date &amp; place</dt><dd>1664 · Amsterdam</dd></div>
           <div><dt>Technique</dt><dd>Copper engraving, hand colour</dd></div>
-          <div><dt>Dimensions</dt><dd>41 × 55 cm (sheet)</dd></div>
+          <div><dt>Dimensions</dt><dd>c. 41 × 55 cm (sheet)</dd></div>
         </dl>
         <div class="showcase-cta">
-          <span class="showcase-price">€ 4,850</span>
+          <span class="showcase-price">€ 12,500</span>
           <a href="stock.html" class="btn btn-solid">View in stock <span class="ar">→</span></a>
         </div>
       </div>
@@ -781,7 +784,7 @@ body::before{
 <!-- ============ MAP ZOOM VIEWER ============ -->
 <div class="vwr" id="vwr" aria-hidden="true" role="dialog" aria-label="Map viewer">
   <div class="vwr-bar">
-    <div class="vwr-meta"><b id="vwrTitle"></b><span id="vwrMaker"></span></div>
+    <div class="vwr-meta"><b id="vwrTitle"></b><span id="vwrMaker"></span><em id="vwrDesc"></em></div>
     <div class="vwr-ctrl">
       <button id="vwrOut" aria-label="Zoom out">–</button>
       <span id="vwrPct">100%</span>
@@ -800,12 +803,12 @@ body::before{
 <script>
 /* ============ DATA — collection, continents, journal ============ */
 const MAPS = [
-  {region:"World · Double Hemisphere",title:"Nova Totius Terrarum Orbis",maker:"J. Blaeu · Amsterdam, 1662",price:"€ 4,850",tag:"New",monster:true,kind:"archipelago",img:"Nova totius Terrarum Orbis geographica ac hydrographica tabula (Hendrik Hondius).jpg"},
-  {region:"Europe",title:"Europa Recens Descripta",maker:"W. Hondius · 1631, hand-coloured",price:"€ 2,300",tag:"New",kind:"continent",img:"1644 Europa Recens Blaeu.jpg"},
-  {region:"The Americas",title:"Americae Nova Tabula",maker:"Ortelius · Antwerp, 1595",price:"€ 6,200",tag:"Rare",monster:true,kind:"coast",img:"Americae Sive Novi Orbis, Nova Descriptio, 1579.jpg"},
-  {region:"Asia · Sea Chart",title:"India Orientalis",maker:"Jansson · 1652, portolan",price:"€ 3,100",tag:null,kind:"coast",img:"1570 Ortelius Map of Asia (first edition) - Geographicus - AsiaeNovaDescriptio-ortelius.jpg"},
-  {region:"Africa",title:"Africae Descriptio",maker:"Mercator / Hondius · 1619",price:"€ 2,750",tag:null,kind:"continent",img:"Bodleian Libraries, Africae Tabula Nova, 1570.jpg"},
-  {region:"Celestial",title:"Planisphaerium Coeleste",maker:"F. de Wit · 1670",price:"€ 5,400",tag:"Sold",sold:true,kind:"archipelago",img:"Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg"},
+  {region:"World · Oval Projection",title:"Typus Orbis Terrarum",maker:"Abraham Ortelius · Antwerp, 1570",price:"€ 8,500",tag:"Iconic",monster:true,kind:"archipelago",img:"OrteliusWorldMap1570.jpg",desc:"The world map that opened the first modern atlas, the Theatrum Orbis Terrarum — an oval projection framed by Cicero's meditation on the smallness of human empire."},
+  {region:"Europe · Carte à figures",title:"Europa Recens Descripta",maker:"Willem Blaeu · Amsterdam, c. 1644",price:"€ 2,600",tag:"New",kind:"continent",img:"1644 Europa Recens Blaeu.jpg",desc:"A carte-à-figures of Europe, its borders lined with engraved city views and figures in regional costume."},
+  {region:"The Americas",title:"Americae Sive Novi Orbis",maker:"Abraham Ortelius · Antwerp, 1579",price:"€ 5,900",tag:"Rare",monster:true,kind:"coast",img:"Americae Sive Novi Orbis, Nova Descriptio, 1579.jpg",desc:"One of the most influential early maps of the Americas, showing the bulging South-American coastline of sixteenth-century knowledge."},
+  {region:"Asia",title:"Asiae Nova Descriptio",maker:"Abraham Ortelius · Antwerp, 1570",price:"€ 1,900",tag:null,kind:"coast",img:"1570 Ortelius Map of Asia (first edition) - Geographicus - AsiaeNovaDescriptio-ortelius.jpg",desc:"Ortelius's foundational map of Asia, from the first edition of the Theatrum Orbis Terrarum."},
+  {region:"Africa",title:"Africae Tabula Nova",maker:"Abraham Ortelius · Antwerp, 1570",price:"€ 1,750",tag:null,kind:"continent",img:"Bodleian Libraries, Africae Tabula Nova, 1570.jpg",desc:"An early separately-issued atlas map of Africa, richly engraved with lions, elephants and imagined interior kingdoms."},
+  {region:"Celestial",title:"Planisphaerium Arateum",maker:"Andreas Cellarius · Amsterdam, 1660",price:"€ 4,200",tag:null,kind:"archipelago",img:"Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg",desc:"A star chart from Cellarius's Harmonia Macrocosmica — widely held to be the most beautiful celestial atlas ever printed."},
 ];
 /* Real public-domain map photographs (Wikimedia Commons).
    WM maps each filename to its md5 shard (the /a/ab/ path segment used by upload.wikimedia.org),
@@ -972,7 +975,7 @@ document.getElementById("worldMap").innerHTML = worldMapSVG() +
   photoTag('Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg',1100,'showcase-photo','Nova Totius Terrarum Orbis — Willem Blaeu, 1662');
 
 document.getElementById("collGrid").innerHTML = MAPS.map((m,i)=>`
-  <article class="card rv rv-d${(i%3)+1}" data-tilt data-img="${m.img}" data-t="${m.title}" data-mk="${m.maker}">
+  <article class="card rv rv-d${(i%3)+1}" data-tilt data-img="${m.img}" data-t="${m.title}" data-mk="${m.maker}" data-desc="${(m.desc||'').replace(/"/g,'&quot;')}">
     <div class="card-media" data-zoom>
       ${m.tag?`<span class="card-tag ${m.sold?'sold':''}">${m.tag}</span>`:''}
       <button class="card-fav" aria-label="Save">${heart}</button>
@@ -1046,7 +1049,7 @@ document.querySelectorAll("[data-mclose]").forEach(a=>a.onclick=closeMM);
 (function(){
   const vwr=document.getElementById('vwr'),stage=document.getElementById('vwrStage'),canvas=document.getElementById('vwrCanvas'),
         load=document.getElementById('vwrLoad'),pct=document.getElementById('vwrPct'),
-        elTitle=document.getElementById('vwrTitle'),elMaker=document.getElementById('vwrMaker');
+        elTitle=document.getElementById('vwrTitle'),elMaker=document.getElementById('vwrMaker'),elDesc=document.getElementById('vwrDesc');
   let scale=1,minScale=1,maxScale=8,tx=0,ty=0,natW=0,natH=0,pendingSVG='';
   function apply(){canvas.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';pct.textContent=Math.round(scale/minScale*100)+'%';}
   function fit(){
@@ -1071,8 +1074,8 @@ document.querySelectorAll("[data-mclose]").forEach(a=>a.onclick=closeMM);
     if(img.fb) el.dataset.fb=img.fb;
     el.alt=elTitle.textContent; el.src=img.src;
   }
-  window.openViewer=function(imgName,title,maker,svg){
-    elTitle.textContent=title||''; elMaker.textContent=maker||''; pendingSVG=svg||'';
+  window.openViewer=function(imgName,title,maker,svg,desc){
+    elTitle.textContent=title||''; elMaker.textContent=maker||''; if(elDesc)elDesc.textContent=desc||''; pendingSVG=svg||'';
     canvas.innerHTML=''; natW=natH=0; scale=1; tx=ty=0; load.textContent='';
     vwr.classList.add('open'); vwr.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
     if(imgName && typeof fp==='function'){
@@ -1107,12 +1110,12 @@ document.querySelectorAll("[data-mclose]").forEach(a=>a.onclick=closeMM);
     const card=trg.closest('.card'); if(!card)return;
     e.preventDefault();
     const svg=card.querySelector('.card-media > svg');
-    openViewer(card.dataset.img, card.dataset.t, card.dataset.mk, svg?svg.outerHTML:'');
+    openViewer(card.dataset.img, card.dataset.t, card.dataset.mk, svg?svg.outerHTML:'', card.dataset.desc);
   });
   const show=document.getElementById('worldMap');
   if(show){show.style.cursor='zoom-in';show.addEventListener('click',()=>{
     const svg=show.querySelector('svg');
-    openViewer('Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg','Nova Totius Terrarum Orbis','Willem Blaeu · Amsterdam, 1662',svg?svg.outerHTML:'');
+    openViewer('Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg','Nova et Accuratissima Terrarum Orbis Tabula','Joan Blaeu · Amsterdam, 1664',svg?svg.outerHTML:'','Blaeu’s double-hemisphere world map, framed by allegories of the seasons and the four elements.');
   });}
 })();
 </script>
