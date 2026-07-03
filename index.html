@@ -109,22 +109,22 @@ body::before{
 .btn-outline-light:hover{border-color:var(--parchment-2);transform:translateY(-2px)}
 
 /* ============ HERO — collector's loupe reveal ============ */
-.hero{position:relative;background:var(--ink);color:var(--parchment-2);overflow:hidden;isolation:isolate;min-height:100svh;display:flex;align-items:center;padding:120px 0 98px;--lr:160px}
+.hero{position:relative;background:var(--ink);color:var(--parchment-2);overflow:hidden;isolation:isolate;min-height:100svh;display:flex;align-items:center;padding:120px 0 98px;--lr:126px}
 .hero-fx{position:absolute;inset:0;z-index:0;pointer-events:none}
 .hero-base,.hero-reveal{position:absolute;inset:0;overflow:hidden}
 .hero-base{z-index:0}
 /* the map photo lives in an inner layer so we can zoom-crop it without shifting the loupe mask */
 .hero-photo{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.09);transform-origin:center}
-.hero-base .hero-photo{filter:brightness(.5) saturate(.74) contrast(1) sepia(.12)}
-.hero-photo-lit{filter:brightness(1.15) saturate(1.24) contrast(1.05)}
+.hero-base .hero-photo{filter:brightness(.3) saturate(.68) contrast(1) sepia(.14)}
+.hero-photo-lit{filter:brightness(.86) saturate(1.1) contrast(1.03)}
 .hero-grad{position:absolute;inset:0;z-index:1;background:
-  linear-gradient(90deg,var(--ink) 0%,rgba(26,24,22,.8) 20%,rgba(26,24,22,.32) 47%,rgba(26,24,22,.04) 78%,rgba(26,24,22,.1) 100%),
-  linear-gradient(0deg,var(--ink) 0%,rgba(26,24,22,0) 24%),
-  radial-gradient(120% 130% at 8% 46%,rgba(26,24,22,0) 34%,rgba(26,24,22,.4) 100%),
-  radial-gradient(135% 140% at 50% 50%,rgba(26,24,22,0) 60%,rgba(26,24,22,.6) 100%)}
+  linear-gradient(90deg,var(--ink) 0%,rgba(26,24,22,.9) 22%,rgba(26,24,22,.6) 48%,rgba(26,24,22,.34) 74%,rgba(26,24,22,.42) 100%),
+  linear-gradient(0deg,var(--ink) 0%,rgba(26,24,22,.18) 30%),
+  radial-gradient(130% 140% at 8% 46%,rgba(26,24,22,0) 28%,rgba(26,24,22,.55) 100%),
+  radial-gradient(140% 150% at 50% 50%,rgba(26,24,22,.12) 52%,rgba(26,24,22,.72) 100%)}
 .hero-reveal{z-index:2;
-  -webkit-mask-image:radial-gradient(circle var(--lr) at var(--lx,68%) var(--ly,46%),#000 55%,rgba(0,0,0,.4) 74%,transparent 84%);
-  mask-image:radial-gradient(circle var(--lr) at var(--lx,68%) var(--ly,46%),#000 55%,rgba(0,0,0,.4) 74%,transparent 84%)}
+  -webkit-mask-image:radial-gradient(circle var(--lr) at var(--lx,68%) var(--ly,46%),#000 46%,rgba(0,0,0,.32) 66%,transparent 80%);
+  mask-image:radial-gradient(circle var(--lr) at var(--lx,68%) var(--ly,46%),#000 46%,rgba(0,0,0,.32) 66%,transparent 80%)}
 .plani{position:absolute;inset:0;width:100%;height:100%}
 .plani-dim{color:#C9A968;opacity:.5}
 .plani-lit{color:#F0DCA6;opacity:.95}
@@ -154,7 +154,7 @@ body::before{
 .hero-hint svg{width:15px;height:15px;color:var(--gold-soft)}
 @keyframes scrolln{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @keyframes spin{to{transform:rotate(360deg)}}
-@media(hover:none){.hero-hint{display:none}}
+@media(hover:none){.hero-hint,.hero-ring{display:none}.hero-reveal{-webkit-mask-image:none;mask-image:none;display:none}}
 @media(prefers-reduced-motion:reduce){.hero-reveal{--lx:68%;--ly:46%}}
 
 /* ============ MARQUEE ============ */
@@ -382,15 +382,18 @@ body::before{
   .navact{gap:4px}
   .icon-btn{width:34px;height:34px}
   .icon-btn svg{width:17px;height:17px}
-  /* hero */
-  .hero{min-height:auto;padding:54px 0 60px;--lr:118px}
-  .hero-top{margin-bottom:26px}
-  .hero h1{font-size:clamp(38px,10.6vw,54px)}
+  /* hero — compact so the stats sit above the fold */
+  .hero{min-height:auto;padding:30px 0 40px;--lr:112px}
+  .hero-top{margin-bottom:18px}
+  .hero h1{font-size:clamp(34px,9.4vw,48px);line-height:1.04}
   .hero h1 .l1{white-space:normal}
-  .hero-sub{margin-top:22px;font-size:16px}
-  .hero-cta{margin-top:30px}
-  .hero-stats{flex-wrap:wrap;gap:16px 0;margin-top:46px}
-  .hero-stat{flex:1 0 46%;padding:18px 18px 4px 0}
+  .hero-sub{margin-top:16px;font-size:14.5px;line-height:1.55}
+  .sub-more{display:none}
+  .hero-cta{margin-top:22px;gap:10px}
+  .hero-cta .btn{padding:13px 22px;font-size:11px}
+  .hero-stats{flex-wrap:wrap;gap:12px 0;margin-top:26px;padding-top:0;border-top:0}
+  .hero-stat{flex:1 0 46%;padding:14px 14px 2px 0}
+  .hero-stat b{font-size:clamp(26px,7vw,34px)}
   .hero-hint{display:none}
   /* keep the map visible behind the text on mobile */
   .hero-photo{transform:scale(1.16)}
@@ -504,7 +507,7 @@ body::before{
       <span class="eyebrow">15<sup>th</sup>—19<sup>th</sup> Century · Original Antiques</span>
     </div>
     <h1 class="rv in"><span class="l1">Cartography from the</span><em>Age of Discovery</em></h1>
-    <p class="hero-sub rv in rv-d1">Authentic maps, sea charts and atlases engraved by the master cartographers of Europe — hand-selected, meticulously described, and delivered with a Certificate of Authenticity. A world of history, framed.</p>
+    <p class="hero-sub rv in rv-d1">Authentic maps, sea charts and atlases engraved by the master cartographers of Europe<span class="sub-more"> — hand-selected, meticulously described, and delivered with a Certificate of Authenticity. A world of history, framed.</span></p>
     <div class="hero-cta rv in rv-d2">
       <a href="stock.html" class="btn btn-gold">Explore the collection <span class="ar">→</span></a>
       <a href="#provenance" class="btn btn-outline-light">On authenticity</a>
@@ -1038,6 +1041,8 @@ document.querySelectorAll("[data-count]").forEach(el=>cio.observe(el));
     const u='url("'+src+'")'; if(pBase)pBase.style.backgroundImage=u; if(pRev)pRev.style.backgroundImage=u;
     const im=new Image(); im.onload=function(){hero.classList.add('has-photo');}; im.src=src;
   }catch(e){}
+  // touch / no-hover devices: static darkened map, no loupe (finger tracking is awkward)
+  if(matchMedia('(hover:none)').matches || !matchMedia('(hover:hover)').matches){ if(ring)ring.style.display='none'; return; }
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
   let idle=true,idleT,t=0;
   function set(x,y){const r=hero.getBoundingClientRect();x=Math.max(0,Math.min(r.width,x));y=Math.max(0,Math.min(r.height,y));
