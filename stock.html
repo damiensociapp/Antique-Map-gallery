@@ -263,7 +263,22 @@ const PHOTOS={
   Africa:["Bodleian Libraries, Africae Tabula Nova, 1570.jpg"],
   Celestial:["Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg","Cellarius Harmonia Macrocosmica - Scenographia Systematis Copernicani.jpg"]
 };
-function fp(name,w){return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(name)+"?width="+(w||700);}
+const WM={
+  "OrteliusWorldMap1570.jpg":"e/e2",
+  "Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg":"5/56",
+  "Nova totius Terrarum Orbis geographica ac hydrographica tabula (Hendrik Hondius).jpg":"d/d0",
+  "1644 Europa Recens Blaeu.jpg":"4/40",
+  "1572 Europa Ortelius.jpg":"6/6a",
+  "Americae Sive Novi Orbis, Nova Descriptio, 1579.jpg":"2/2d",
+  "Theatrum Orbis Terrarum - Americae sive Novi Orbis, Nova Descriptio.jpg":"0/00",
+  "1570 Ortelius Map of Asia (first edition) - Geographicus - AsiaeNovaDescriptio-ortelius.jpg":"a/a3",
+  "Bodleian Libraries, Africae Tabula Nova, 1570.jpg":"1/11",
+  "Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg":"0/08",
+  "Cellarius Harmonia Macrocosmica - Scenographia Systematis Copernicani.jpg":"2/2c"
+};
+function fp(name,w){const u=encodeURIComponent(name.replace(/ /g,"_"));const d=WM[name];return d?`https://upload.wikimedia.org/wikipedia/commons/thumb/${d}/${u}/${w||800}px-${u}`:`https://commons.wikimedia.org/wiki/Special:FilePath/${u}?width=${w||800}`;}
+function fpAlt(name,w){return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(name.replace(/ /g,"_"))+"?width="+(w||800);}
+function photoTag(name,w,cls,alt){return `<img class="${cls}" src="${fp(name,w)}" data-fb="${fpAlt(name,w)}" alt="${alt}" loading="lazy" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.removeAttribute('data-fb')}else{this.remove()}">`;}
 (function assignPhotos(){const cnt={};STOCK.forEach(m=>{const a=PHOTOS[m.r]||[];if(!a.length)return;cnt[m.r]=(cnt[m.r]||0);m.img=a[cnt[m.r]%a.length];cnt[m.r]++;});})();
 
 const REGIONS=["World","Europe","Americas","Asia","Africa","Celestial"];
@@ -345,7 +360,7 @@ function render(){
       <div class="card-media">
         ${sold?'<span class="card-tag sold">Sold</span>':st==="reserved"?'<span class="card-tag reserved">Reserved</span>':m.tag?`<span class="card-tag">${m.tag}</span>`:''}
         ${mapSVG(seed,m.kind,m.mon)}
-        ${m.img?`<img class="card-photo" src="${fp(m.img,600)}" alt="${m.t} — ${m.mk}" loading="lazy" onerror="this.remove()">`:''}
+        ${m.img?photoTag(m.img,600,'card-photo',m.t+' — '+m.mk):''}
       </div>
       <div class="card-body">
         <div class="card-region">${m.r} · ${m.y}</div>

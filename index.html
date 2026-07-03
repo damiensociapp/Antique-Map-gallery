@@ -758,9 +758,25 @@ const MAPS = [
   {region:"Africa",title:"Africae Descriptio",maker:"Mercator / Hondius · 1619",price:"€ 2,750",tag:null,kind:"continent",img:"Bodleian Libraries, Africae Tabula Nova, 1570.jpg"},
   {region:"Celestial",title:"Planisphaerium Coeleste",maker:"F. de Wit · 1670",price:"€ 5,400",tag:"Sold",sold:true,kind:"archipelago",img:"Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg"},
 ];
-/* Real public-domain map photos (Wikimedia Commons, Special:FilePath — stable, no hash needed).
-   Each <img> falls back to the drawn SVG via onerror, so a blocked/renamed file never breaks layout. */
-function fp(name,w){return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(name)+"?width="+(w||700);}
+/* Real public-domain map photographs (Wikimedia Commons).
+   WM maps each filename to its md5 shard (the /a/ab/ path segment used by upload.wikimedia.org),
+   letting us build a DIRECT CDN url. 3-level fallback: direct upload -> Special:FilePath -> drawn SVG. */
+const WM={
+  "OrteliusWorldMap1570.jpg":"e/e2",
+  "Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg":"5/56",
+  "Nova totius Terrarum Orbis geographica ac hydrographica tabula (Hendrik Hondius).jpg":"d/d0",
+  "1644 Europa Recens Blaeu.jpg":"4/40",
+  "1572 Europa Ortelius.jpg":"6/6a",
+  "Americae Sive Novi Orbis, Nova Descriptio, 1579.jpg":"2/2d",
+  "Theatrum Orbis Terrarum - Americae sive Novi Orbis, Nova Descriptio.jpg":"0/00",
+  "1570 Ortelius Map of Asia (first edition) - Geographicus - AsiaeNovaDescriptio-ortelius.jpg":"a/a3",
+  "Bodleian Libraries, Africae Tabula Nova, 1570.jpg":"1/11",
+  "Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg":"0/08",
+  "Cellarius Harmonia Macrocosmica - Scenographia Systematis Copernicani.jpg":"2/2c"
+};
+function fp(name,w){const u=encodeURIComponent(name.replace(/ /g,"_"));const d=WM[name];return d?`https://upload.wikimedia.org/wikipedia/commons/thumb/${d}/${u}/${w||800}px-${u}`:`https://commons.wikimedia.org/wiki/Special:FilePath/${u}?width=${w||800}`;}
+function fpAlt(name,w){return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(name.replace(/ /g,"_"))+"?width="+(w||800);}
+function photoTag(name,w,cls,alt){return `<img class="${cls}" src="${fp(name,w)}" data-fb="${fpAlt(name,w)}" alt="${alt}" loading="lazy" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.removeAttribute('data-fb')}else{this.remove()}">`;}
 
 const CONTINENTS = [
   {n:"Europe",c:"128 maps"},{n:"The Americas",c:"96 maps"},{n:"Asia",c:"74 maps"},
@@ -900,7 +916,7 @@ function articleSVG(seed){
 const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.3-9.3-8.5C1 8 2.6 5 5.6 5 7.6 5 9 6.4 12 9c3-2.6 4.4-4 6.4-4 3 0 4.6 3 2.9 6.5C19 15.7 12 20 12 20z"/></svg>';
 
 document.getElementById("worldMap").innerHTML = worldMapSVG() +
-  `<img class="showcase-photo" src="${fp('Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg',1100)}" alt="Nova Totius Terrarum Orbis — Willem Blaeu, 1662" loading="lazy" onerror="this.remove()">`;
+  photoTag('Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg',1100,'showcase-photo','Nova Totius Terrarum Orbis — Willem Blaeu, 1662');
 
 document.getElementById("collGrid").innerHTML = MAPS.map((m,i)=>`
   <article class="card rv rv-d${(i%3)+1}" data-tilt>
@@ -908,7 +924,7 @@ document.getElementById("collGrid").innerHTML = MAPS.map((m,i)=>`
       ${m.tag?`<span class="card-tag ${m.sold?'sold':''}">${m.tag}</span>`:''}
       <button class="card-fav" aria-label="Save">${heart}</button>
       ${mapSVG(i+1,m.kind,m.monster)}
-      <img class="card-photo" src="${fp(m.img,660)}" alt="${m.title} — ${m.maker}" loading="lazy" onerror="this.remove()">
+      ${photoTag(m.img,660,'card-photo',m.title+' — '+m.maker)}
       <span class="card-frame"></span>
     </div>
     <div class="card-body">
