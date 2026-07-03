@@ -549,7 +549,7 @@ body::before{
         </dl>
         <div class="showcase-cta">
           <span class="showcase-price" id="scPrice">On request</span>
-          <a href="stock.html" class="btn btn-solid">View in stock <span class="ar">→</span></a>
+          <a href="stock.html" id="scBtn" class="btn btn-solid">View this map <span class="ar">→</span></a>
         </div>
       </div>
     </div>
@@ -800,16 +800,17 @@ body::before{
   <div class="vwr-hint">Scroll / pinch to zoom · drag to pan · double-click to zoom · Esc to close</div>
 </div>
 
+<script src="catalog.js"></script>
 <script>
 /* ============ DATA — collection, continents, journal ============ */
-const FEATURED=[{"t": "World Map", "mk": "Pieter van der Aa", "r": "World", "country": "", "y": 1713, "c": 18, "price": 5000, "img": "https://static.wixstatic.com/media/d90944_c0008f8ddc2049a39494c73e6331022a~mv2.jpg", "ribbon": "", "desc": "This beautiful and very rare contempary hand coloured map 'Nova Orbis Terraquei Tabula Accuratissime Delineata' by Pieter van der Aa from the atlas 'Le Nouveau Theatre' which was published in Leiden in 1713, is a detailed and striking World map. This is a very sought-after map. Pieter van der Aa (1659-1733) was a Dutch cartographer as wel", "kind": "archipelago"}, {"t": "Italy, Venice", "mk": "Donato Bertelli", "r": "Europe", "country": "Italy", "y": 1545, "c": 16, "price": 9500, "img": "https://static.wixstatic.com/media/d90944_eab7a9894e2e4db6979296e1eff0b8aa~mv2.jpg", "ribbon": "", "desc": "Beautiful bird’s-eye of Venice, with topographical legend. This spectacular view is a separate publication by Donato Bertelli, first described in Peter H Meurer’s “The Strabo Illustrates Atlas 1545-1571”. This is the first and only state. The copper engraving is in excellent condition and as often the case with maps from the Laferi school", "kind": "continent"}, {"t": "South America - La Descrittione Di Tutto Il Peru", "mk": "Paolo Forlani", "r": "Americas", "country": "", "y": 1615, "c": 17, "price": 25000, "img": "https://static.wixstatic.com/media/d90944_f11bc431be284d299421bcf9127a4ee8~mv2.jpg", "ribbon": "", "desc": "This rare map of South America, created by Paolo Forlani, stands out as the first detailed representation of the continent's interior and is the sole map of South America produced by the Lafreri School. Distinguished as one of the earliest printed continental maps of South America, it depicts the continent along with a significant portion", "kind": "coast"}, {"t": "Asia", "mk": "Pieter van der Aa", "r": "Asia", "country": "", "y": 1713, "c": 18, "price": 2250, "img": "https://static.wixstatic.com/media/d90944_01bca1b148cd4b6cbfe5eb42e8f9e259~mv2.jpg", "ribbon": "", "desc": "This beautiful and very rare contempary hand coloured map 'Asia in Praecipuas Ipsius partes Distributa ad Observationes...' by Pieter van der Aa from the atlas 'Le Nouveau Theatre' which was published in Leiden in 1713, is a detailed and charming map of Asia. Pieter van der Aa (1659-1733) was a Dutch cartographer as well as publisher who ", "kind": "coast"}, {"t": "Africa", "mk": "Pieter van der Aa", "r": "Africa", "country": "", "y": 1713, "c": 18, "price": 2250, "img": "https://static.wixstatic.com/media/d90944_425c6ba6b2254934a57eb22125148025~mv2.jpg", "ribbon": "", "desc": "This beautiful and very rare contempary hand coloured map 'Africa in Praecipuas ipsius Partes Distributa, ad Observationes Academiae Regiae Scientiarum, et Exquisitissimas Tabulas, quae nunquam Antehac Lucem Viderunt, Excusa A, Cum privilegio Ordinum Hollandiae et Westfrisiae' by Pieter van der Aa from the atlas 'Le Nouveau Theatre' which", "kind": "continent"}, {"t": "Theatrum Orbis Terrarum - 1612", "mk": "Abraham Ortelius", "r": "Atlases", "country": "", "y": 1612, "c": 17, "price": 225000, "img": "https://static.wixstatic.com/media/d90944_d80b931c281a4879b640a2023def1828~mv2.jpg", "ribbon": "", "desc": "Abraham Ortelius, Theatrum Orbis Terrarum. Antwerp, Plantin, 1612. Folio. (26), 128, (4), XL, 1 leaf. With 2 engraved titles, 1 title vignette, 1 portrait, 7 (of which 5 are double-page) copper plates, 166 double-page engraved maps, 5 text engravings, all in EARLY COLOURING. Contemporary blind-tooled pigskin over unbevelled wooden boards,", "kind": "archipelago"}];
-const SHOWCASE={"t": "Theatrum Orbis Terrarum - 1612", "mk": "Abraham Ortelius", "y": 1612, "price": 225000, "img": "https://static.wixstatic.com/media/d90944_d80b931c281a4879b640a2023def1828~mv2.jpg", "desc": "Abraham Ortelius, Theatrum Orbis Terrarum. Antwerp, Plantin, 1612. Folio. (26), 128, (4), XL, 1 leaf. With 2 engraved titles, 1 title vignette, 1 portrait, 7 (of which 5 are double-page) copper plates, 166 double-page engraved maps, 5 text engravings, all in EARLY COLOURING. Contemporary blind-tooled pigskin over unbevelled wooden boards,", "dims": "", "r": "Atlases"};
-const REGIONS_DATA=[{"n": "Europe", "c": "200 maps", "img": "https://static.wixstatic.com/media/d90944_eab7a9894e2e4db6979296e1eff0b8aa~mv2.jpg"}, {"n": "Americas", "c": "28 maps", "img": "https://static.wixstatic.com/media/d90944_f11bc431be284d299421bcf9127a4ee8~mv2.jpg"}, {"n": "Asia", "c": "27 maps", "img": "https://static.wixstatic.com/media/d90944_01bca1b148cd4b6cbfe5eb42e8f9e259~mv2.jpg"}, {"n": "Africa", "c": "8 maps", "img": "https://static.wixstatic.com/media/d90944_425c6ba6b2254934a57eb22125148025~mv2.jpg"}, {"n": "World", "c": "7 maps", "img": "https://static.wixstatic.com/media/d90944_c0008f8ddc2049a39494c73e6331022a~mv2.jpg"}, {"n": "Atlases", "c": "6 maps", "img": "https://static.wixstatic.com/media/d90944_d80b931c281a4879b640a2023def1828~mv2.jpg"}, {"n": "Polar Region", "c": "3 maps", "img": "https://static.wixstatic.com/media/d90944_407c55722e14415bb262f64b126e4160~mv2.jpg"}];
+const FEATURED=(window.FEATURED_IDS||[]).map(i=>window.CATALOG[i]).filter(Boolean);
+const SHOWCASE=(window.CATALOG||[])[window.SHOWCASE_ID]||{};
+const REGIONS_DATA=(window.REGIONS_INFO||[]).map(r=>({n:r.n,c:r.c,img:(window.CATALOG[r.rep]||{}).img}));
 const MAPS = FEATURED.map(d=>({
   region: d.r + (d.country? " · "+d.country : ""),
   title: d.t, maker: (d.mk||"—") + (d.y? " · "+d.y : ""),
   price: d.price>0 ? ("\u20ac "+d.price.toLocaleString("en-US")) : "On request",
-  tag: d.ribbon||null, kind: d.kind, monster:0, img:d.img, desc:d.desc, sold:false
+  id:d.id, tag: d.ribbon||null, kind: d.kind, monster:0, img:d.img, desc:d.desc, sold:false
 }));
 /* Real public-domain map photographs (Wikimedia Commons).
    WM maps each filename to its md5 shard (the /a/ab/ path segment used by upload.wikimedia.org),
@@ -966,40 +967,39 @@ function articleSVG(seed){
 const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.3-9.3-8.5C1 8 2.6 5 5.6 5 7.6 5 9 6.4 12 9c3-2.6 4.4-4 6.4-4 3 0 4.6 3 2.9 6.5C19 15.7 12 20 12 20z"/></svg>';
 
 document.getElementById("worldMap").innerHTML = worldMapSVG() +
-  photoTag(SHOWCASE.img,1400,'showcase-photo',SHOWCASE.t);
+  (SHOWCASE.img?`<img class="showcase-photo" src="${wixFit(SHOWCASE.img,1300,85)}" alt="${(SHOWCASE.t||'').replace(/"/g,'&quot;')}" loading="lazy" decoding="async" onerror="this.remove()">`:'');
 (function(){var S=SHOWCASE,g=id=>document.getElementById(id);
-  g("scTitle").textContent=S.t;
-  g("scLead").textContent=S.desc;
+  g("scTitle").textContent=S.t||"Piece of the month";
+  g("scLead").textContent=(S.desc||"").split("\n")[0];
   g("scMaker").textContent=S.mk||"—";
   g("scDate").textContent=S.y||"—";
   g("scRegion").textContent=S.r||"—";
   g("scPrice").textContent=S.price>0?("€ "+S.price.toLocaleString("en-US")):"On request";
+  var btn=g("scBtn"); if(btn&&S.id!=null) btn.setAttribute("href","product.html?id="+S.id);
 })();
 
 document.getElementById("collGrid").innerHTML = MAPS.map((m,i)=>`
-  <article class="card rv rv-d${(i%3)+1}" data-tilt data-img="${m.img}" data-t="${m.title}" data-mk="${m.maker}" data-desc="${(m.desc||'').replace(/"/g,'&quot;')}">
-    <div class="card-media" data-zoom>
-      ${m.tag?`<span class="card-tag ${m.sold?'sold':''}">${m.tag}</span>`:''}
-      <button class="card-fav" aria-label="Save">${heart}</button>
+  <a class="card rv rv-d${(i%3)+1}" data-tilt href="product.html?id=${m.id}">
+    <div class="card-media">
+      ${m.tag?`<span class="card-tag">${m.tag}</span>`:''}
       ${mapSVG(i+1,m.kind,m.monster)}
-      ${photoTag(m.img,660,'card-photo',m.title+' — '+m.maker)}
+      ${m.img?`<img class="card-photo" src="${wixImg(m.img,560,700,74)}" alt="${(m.title||'').replace(/"/g,'&quot;')}" loading="lazy" decoding="async" onerror="this.remove()">`:''}
       <span class="card-frame"></span>
-      <span class="card-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
     </div>
     <div class="card-body">
       <div class="card-region">${m.region}</div>
       <h3 class="card-title">${m.title}</h3>
       <div class="card-meta">${m.maker}</div>
       <div class="card-foot">
-        <div class="card-price">${m.sold?'<small>Sold</small>':m.price}</div>
-        <a href="#" class="card-view" data-zoom>${m.sold?'Enquire':'View map'} →</a>
+        <div class="card-price">${m.price}</div>
+        <span class="card-view">View map →</span>
       </div>
     </div>
-  </article>`).join("");
+  </a>`).join("");
 
 document.getElementById("contGrid").innerHTML = CONTINENTS.map(c=>`
   <a class="cont" href="stock.html">
-    <span class="cont-ico">${contIcon(c.n)}${c.img?photoTag(c.img,180,'cont-photo',c.n+' — antique map'):''}</span>
+    <span class="cont-ico">${contIcon(c.n)}${c.img?`<img class="cont-photo" src="${wixImg(c.img,220,220,72)}" alt="${c.n}" loading="lazy" onerror="this.remove()">`:''}</span>
     <b>${c.n}</b><span>${c.c}</span>
   </a>`).join("");
 
@@ -1115,9 +1115,8 @@ document.querySelectorAll("[data-mclose]").forEach(a=>a.onclick=closeMM);
     openViewer(card.dataset.img, card.dataset.t, card.dataset.mk, svg?svg.outerHTML:'', card.dataset.desc);
   });
   const show=document.getElementById('worldMap');
-  if(show){show.style.cursor='zoom-in';show.addEventListener('click',()=>{
-    const svg=show.querySelector('svg');
-    openViewer(SHOWCASE.img,SHOWCASE.t,(SHOWCASE.mk||'')+(SHOWCASE.y?' · '+SHOWCASE.y:''),svg?svg.outerHTML:'',SHOWCASE.desc);
+  if(show){show.style.cursor='pointer';show.addEventListener('click',()=>{
+    if(SHOWCASE&&SHOWCASE.id!=null) location.href='product.html?id='+SHOWCASE.id;
   });}
 })();
 </script>

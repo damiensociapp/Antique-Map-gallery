@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Map — Antique Maps Gallery</title>
+<meta name="description" content="An original antique map from Antique Maps Gallery.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --parchment:#EFE8DA;--parchment-2:#F7F2E6;--parchment-3:#E7DECB;
+  --ink:#1A1816;--ink-soft:#3A3735;--ink-mut:#6E6863;
+  --gold:#B5945A;--gold-deep:#9A7B44;--gold-soft:#CBAE79;
+  --teal:#2E524E;--teal-deep:#213D3A;--rust:#93502F;
+  --line:rgba(26,24,22,.14);--line-2:rgba(26,24,22,.08);--line-light:rgba(247,242,230,.18);
+  --r:3px;--shadow:0 30px 80px -30px rgba(26,24,22,.45);--ease:cubic-bezier(.2,.7,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--parchment);color:var(--ink);font-family:"Inter",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01";overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:"Fraunces","Cormorant Garamond",serif;font-weight:300;letter-spacing:-.01em;line-height:1.06;color:var(--ink)}
+::selection{background:var(--gold);color:var(--parchment-2)}
+body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.05;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold-deep)}
+
+.topbar{background:var(--ink);color:rgba(247,242,230,.72)}
+.topbar .wrap{display:flex;align-items:center;justify-content:center;gap:14px;height:38px;font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:500}
+.topbar svg{width:15px;height:15px;opacity:.85}
+.nav{position:sticky;top:0;z-index:900;background:rgba(239,232,218,.9);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);border-bottom:1px solid var(--line-2)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:13px}
+.brand .mk{width:38px;height:38px;color:var(--ink)}
+.brand .bt{display:flex;flex-direction:column;line-height:1}
+.brand .bt b{font-family:"Fraunces",serif;font-weight:400;font-size:17px;letter-spacing:.12em}
+.brand .bt span{font-size:8.5px;letter-spacing:3.6px;text-transform:uppercase;color:var(--gold-deep);margin-top:4px;font-weight:500}
+.navlinks{display:flex;align-items:center;gap:38px}
+.navlinks a{font-size:12.5px;color:var(--ink-soft);position:relative;padding:6px 0;transition:color .3s var(--ease)}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .35s var(--ease)}
+.navlinks a:hover::after{width:100%}
+.navact{display:flex;align-items:center;gap:20px}
+.icon-btn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;color:var(--ink-soft);border:1px solid transparent;border-radius:999px;transition:.3s var(--ease);position:relative;background:none;cursor:pointer}
+.icon-btn:hover{border-color:var(--line);color:var(--ink)}
+.icon-btn svg{width:19px;height:19px}
+.cart-dot{position:absolute;top:6px;right:6px;width:15px;height:15px;background:var(--gold);color:var(--parchment-2);border-radius:50%;font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center}
+
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 30px;font-size:11.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;border-radius:var(--r);cursor:pointer;border:1px solid transparent;transition:.3s var(--ease)}
+.btn .ar{transition:transform .35s var(--ease)}.btn:hover .ar{transform:translateX(6px)}
+.btn-solid{background:var(--ink);color:var(--parchment-2)}.btn-solid:hover{background:var(--teal);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}.btn-ghost:hover{border-color:var(--ink)}
+
+.crumb{padding:26px 0 0}
+.crumb .wrap{display:flex;gap:10px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink-mut)}
+.crumb a:hover{color:var(--gold-deep)}
+
+.pdp{padding:34px 0 110px}
+.pdp-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:70px;align-items:start}
+/* gallery */
+.gal-main{position:relative;border:1px solid var(--line);padding:16px;background:var(--parchment-2);border-radius:var(--r);box-shadow:var(--shadow);cursor:zoom-in}
+.gal-frame{position:relative;border:1px solid var(--gold);overflow:hidden;background:var(--parchment-3);min-height:320px;display:flex;align-items:center;justify-content:center}
+.gal-frame img{width:100%;height:auto;display:block}
+.gal-frame .ph{width:100%;aspect-ratio:4/3}
+.gal-zoomhint{position:absolute;right:26px;bottom:26px;z-index:3;display:inline-flex;align-items:center;gap:8px;background:rgba(26,24,22,.82);color:var(--parchment-2);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 14px;border-radius:999px}
+.gal-zoomhint svg{width:15px;height:15px}
+.gal-thumbs{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
+.gal-thumb{width:74px;height:90px;border:1px solid var(--line);border-radius:2px;overflow:hidden;cursor:pointer;background:var(--parchment-3);opacity:.65;transition:.25s var(--ease)}
+.gal-thumb.on,.gal-thumb:hover{opacity:1;border-color:var(--gold)}
+.gal-thumb img{width:100%;height:100%;object-fit:cover}
+/* info */
+.pdp-info .region{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-deep);font-weight:500}
+.pdp-info h1{font-size:clamp(30px,3.8vw,48px);font-weight:300;margin-top:14px}
+.pdp-info h1 em{font-style:italic;color:var(--teal)}
+.pdp-maker{margin-top:16px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:20px;color:var(--ink-soft)}
+.pdp-price{margin-top:26px;font-family:"Fraunces",serif;font-weight:300;font-size:38px;color:var(--ink)}
+.pdp-price small{font-size:14px;color:var(--ink-mut);font-family:"Inter"}
+.pdp-cta{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+.pdp-assure{margin-top:26px;display:flex;flex-direction:column;gap:10px}
+.pdp-assure div{display:flex;align-items:center;gap:12px;font-size:13.5px;color:var(--ink-soft)}
+.pdp-assure svg{width:17px;height:17px;color:var(--teal);flex:0 0 auto}
+.pdp-desc{margin-top:38px;padding-top:34px;border-top:1px solid var(--line)}
+.pdp-desc h3{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-deep);font-weight:600;margin-bottom:18px;font-family:"Inter"}
+.pdp-desc p{font-size:16px;line-height:1.8;color:var(--ink-soft);font-weight:300;margin-bottom:14px}
+.pdp-specs{margin-top:30px;display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.pdp-specs>div{background:var(--parchment-2);padding:16px 18px}
+.pdp-specs dt{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-deep);font-weight:600}
+.pdp-specs dd{font-family:"Cormorant Garamond",serif;font-size:18px;color:var(--ink);margin-top:5px}
+
+/* related */
+.related{padding:0 0 110px}
+.related h2{font-size:clamp(26px,3vw,38px);font-weight:300;margin-bottom:34px}
+.related h2 em{font-style:italic;color:var(--teal)}
+.rel-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:28px}
+.rcard{background:var(--parchment-2);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.rcard:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.rcard-media{aspect-ratio:4/5;overflow:hidden;background:var(--parchment-3)}
+.rcard-media img{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.rcard:hover .rcard-media img{transform:scale(1.05)}
+.rcard-body{padding:18px 18px 20px}
+.rcard-body .rg{font-size:9px;letter-spacing:1.6px;text-transform:uppercase;color:var(--gold-deep);font-weight:500}
+.rcard-body h3{font-size:17px;font-weight:400;margin-top:8px;line-height:1.15}
+.rcard-body .pr{margin-top:10px;font-family:"Fraunces",serif;font-size:16px;color:var(--ink)}
+
+/* zoom viewer */
+.vwr{position:fixed;inset:0;z-index:100000;background:rgba(20,18,16,.965);display:none;flex-direction:column}
+.vwr.open{display:flex}
+.vwr-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 22px;color:var(--parchment-2);border-bottom:1px solid rgba(203,174,121,.22)}
+.vwr-meta{max-width:min(62ch,54%)}
+.vwr-meta b{font-family:"Fraunces",serif;font-weight:400;font-size:18px;display:block;line-height:1.1}
+.vwr-meta span{font-family:"Inter",sans-serif;font-size:12px;color:var(--gold-soft)}
+.vwr-ctrl{display:flex;align-items:center;gap:8px}
+.vwr-ctrl button{background:transparent;color:var(--parchment-2);border:1px solid rgba(203,174,121,.4);border-radius:6px;min-width:40px;height:40px;padding:0 12px;font-size:17px;cursor:pointer;font-family:"Inter";transition:.2s var(--ease)}
+.vwr-ctrl button:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.vwr-ctrl #vwrReset{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase}
+.vwr-ctrl #vwrPct{color:var(--gold-soft);font-size:12px;min-width:52px;text-align:center;font-variant-numeric:tabular-nums;border:0}
+.vwr-stage{flex:1;overflow:hidden;position:relative;cursor:grab;touch-action:none}
+.vwr-stage.grabbing{cursor:grabbing}
+.vwr-canvas{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform}
+.vwr-canvas img{display:block;max-width:none}
+.vwr-load{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--gold-soft);font-family:"Cormorant Garamond",serif;font-style:italic;font-size:16px}
+.vwr-hint{padding:12px;text-align:center;color:rgba(247,242,230,.5);font-size:11px}
+
+.foot{background:var(--parchment-3);padding:70px 0 34px;border-top:1px solid var(--line)}
+.foot-grid{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;flex-wrap:wrap;padding-bottom:48px;border-bottom:1px solid var(--line)}
+.foot p{font-size:14px;color:var(--ink-mut);max-width:36ch;margin-top:16px}
+.foot-links{display:flex;gap:60px;flex-wrap:wrap}
+.foot-col h5{font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:600;margin-bottom:16px}
+.foot-col a{display:block;font-size:14px;color:var(--ink-mut);padding:6px 0;transition:.3s var(--ease)}
+.foot-col a:hover{color:var(--ink)}
+.foot-bot{padding-top:26px;font-size:12.5px;color:var(--ink-mut);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+@media(max-width:900px){.pdp-grid{grid-template-columns:1fr;gap:44px}.navlinks{display:none}.rel-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.wrap{padding:0 22px}.pdp-specs{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l7 3v6c0 4.5-3 8-7 11-4-3-7-6.5-7-11V5l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+  <span>Certificate of Authenticity with every map · Worldwide insured shipping · Est. 2023</span>
+</div></div>
+
+<header class="nav"><div class="wrap">
+  <a href="index.html" class="brand">
+    <span class="mk"><svg viewBox="0 0 40 40" fill="none">
+      <circle cx="20" cy="20" r="18.6" stroke="currentColor" stroke-width="1.3"/>
+      <ellipse cx="20" cy="20" rx="7.3" ry="18.6" stroke="currentColor" stroke-width=".6" opacity=".28"/>
+      <line x1="1.4" y1="20" x2="38.6" y2="20" stroke="currentColor" stroke-width=".6" opacity=".28"/>
+      <line x1="20" y1="1.4" x2="20" y2="38.6" stroke="currentColor" stroke-width=".6" opacity=".16"/>
+      <path d="M20 3.6 23.4 18.4 20 20 16.6 18.4Z" fill="#B5945A"/>
+      <path d="M20 36.4 16.6 21.6 20 20 23.4 21.6Z" fill="currentColor"/>
+      <circle cx="20" cy="20" r="1.7" fill="#B5945A"/>
+    </svg></span>
+    <span class="bt"><b>ANTIQUE MAPS</b><span>Gallery · Rare Cartography</span></span>
+  </a>
+  <nav class="navlinks">
+    <a href="stock.html">Stock</a>
+    <a href="index.html#collection">Featured</a>
+    <a href="index.html#continents">By Region</a>
+    <a href="index.html#story">The Gallery</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+  <div class="navact">
+    <button class="icon-btn" aria-label="Search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></button>
+    <button class="icon-btn" aria-label="Cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6h15l-1.5 9h-12L6 6zM6 6L5 2H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg><span class="cart-dot">2</span></button>
+  </div>
+</div></header>
+
+<div class="crumb"><div class="wrap"><a href="index.html">Home</a><span>/</span><a href="stock.html">Stock</a><span>/</span><span id="crumbName">Map</span></div></div>
+
+<main class="pdp"><div class="wrap">
+  <div class="pdp-grid" id="pdp"><!-- filled by JS --></div>
+</div></main>
+
+<section class="related"><div class="wrap">
+  <h2>More from <em id="relRegion">the collection</em></h2>
+  <div class="rel-grid" id="relGrid"></div>
+</div></section>
+
+<footer class="foot"><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <a href="index.html" class="brand">
+        <span class="mk"><svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="18.6" stroke="currentColor" stroke-width="1.3"/><ellipse cx="20" cy="20" rx="7.3" ry="18.6" stroke="currentColor" stroke-width=".6" opacity=".28"/><line x1="1.4" y1="20" x2="38.6" y2="20" stroke="currentColor" stroke-width=".6" opacity=".28"/><path d="M20 3.6 23.4 18.4 20 20 16.6 18.4Z" fill="#B5945A"/><path d="M20 36.4 16.6 21.6 20 20 23.4 21.6Z" fill="currentColor"/><circle cx="20" cy="20" r="1.7" fill="#B5945A"/></svg></span>
+        <span class="bt"><b>ANTIQUE MAPS</b><span>Gallery · Rare Cartography</span></span>
+      </a>
+      <p>Original antiquarian maps, charts and atlases from the 15th to the 19th century — curated, certified, and shipped worldwide.</p>
+    </div>
+    <div class="foot-links">
+      <div class="foot-col"><h5>Shop</h5><a href="stock.html">All stock</a><a href="index.html#continents">By region</a><a href="index.html#collection">Featured</a></div>
+      <div class="foot-col"><h5>Gallery</h5><a href="index.html#story">Our story</a><a href="index.html#provenance">Authenticity</a><a href="contact.html">Contact</a></div>
+      <div class="foot-col"><h5>Assurance</h5><a href="#">Certificate</a><a href="#">Insured shipping</a><a href="#">14-day returns</a></div>
+    </div>
+  </div>
+  <div class="foot-bot"><span>© 2023—2026 Antique Maps Gallery.</span><span>hello@antiquemapsgallery.com</span></div>
+</div></footer>
+
+<!-- zoom viewer -->
+<div class="vwr" id="vwr" aria-hidden="true" role="dialog" aria-label="Map viewer">
+  <div class="vwr-bar">
+    <div class="vwr-meta"><b id="vwrTitle"></b><span id="vwrMaker"></span></div>
+    <div class="vwr-ctrl"><button id="vwrOut" aria-label="Zoom out">–</button><span id="vwrPct">100%</span><button id="vwrIn" aria-label="Zoom in">+</button><button id="vwrReset">Reset</button><button id="vwrClose" aria-label="Close">✕</button></div>
+  </div>
+  <div class="vwr-stage" id="vwrStage"><div class="vwr-canvas" id="vwrCanvas"></div><div class="vwr-load" id="vwrLoad"></div></div>
+  <div class="vwr-hint">Scroll / pinch to zoom · drag to pan · double-click · Esc to close</div>
+</div>
+
+<script src="catalog.js"></script>
+<script>
+const esc=s=>(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const euro=n=>"€ "+n.toLocaleString("en-US");
+const CAT=window.CATALOG||[];
+const params=new URLSearchParams(location.search);
+let id=params.has('id')?parseInt(params.get('id')):window.SHOWCASE_ID;
+let m=CAT.find(x=>x.id===id)|| CAT[window.SHOWCASE_ID] || CAT[0];
+
+function render(){
+  if(!m){document.getElementById('pdp').innerHTML='<p>Map not found. <a href="stock.html" style="text-decoration:underline">Back to stock</a>.</p>';return;}
+  document.title=m.t+" — Antique Maps Gallery";
+  document.getElementById('crumbName').textContent=m.t;
+  const sub=[m.r,m.country,m.y].filter(Boolean).join(' · ');
+  const priceHtml=m.price>0?euro(m.price):'<small>Price on request</small>';
+  const mainSrc=wixFit(m.img,1100,85);
+  const thumbs=(m.imgs||[m.img]).map((u,i)=>`<span class="gal-thumb ${i===0?'on':''}" data-full="${u}"><img src="${wixImg(u,150,180,68)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'"></span>`).join('');
+  const descHtml=(m.desc||'').split('\n').filter(Boolean).map(p=>`<p>${esc(p)}</p>`).join('')||'<p>Full description available on request.</p>';
+  const mailto='mailto:hello@antiquemapsgallery.com?subject='+encodeURIComponent('Enquiry — '+m.t)+'&body='+encodeURIComponent('I would like more information about "'+m.t+'"'+(m.mk?' ('+m.mk+')':'')+'.');
+  document.getElementById('pdp').innerHTML=`
+    <div class="pdp-gallery">
+      <div class="gal-main" id="galMain">
+        <div class="gal-frame"><img id="galImg" src="${mainSrc}" alt="${esc(m.t)}" onerror="this.style.display='none'"></div>
+        <span class="gal-zoomhint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg> Click to zoom</span>
+      </div>
+      ${(m.imgs&&m.imgs.length>1)?`<div class="gal-thumbs" id="galThumbs">${thumbs}</div>`:''}
+    </div>
+    <div class="pdp-info">
+      <div class="region">${esc(sub)}</div>
+      <h1>${esc(m.t)}</h1>
+      <div class="pdp-maker">${esc(m.mk||'')}</div>
+      <div class="pdp-price">${priceHtml}</div>
+      <div class="pdp-cta">
+        <a class="btn btn-solid" href="${mailto}">Enquire about this map <span class="ar">→</span></a>
+        <a class="btn btn-ghost" href="stock.html">Back to stock</a>
+      </div>
+      <div class="pdp-assure">
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l7 3v6c0 4.5-3 8-7 11-4-3-7-6.5-7-11V5l7-3z"/><path d="M9 12l2 2 4-4"/></svg> Certificate of Authenticity included</div>
+        <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="15" height="12" rx="1"/><path d="M18 10h3l2 3v3h-5"/><circle cx="7" cy="18" r="1.6"/><circle cx="17" cy="18" r="1.6"/></svg> Insured worldwide shipping · 14-day returns</div>
+      </div>
+      <div class="pdp-specs">
+        <div><dt>Cartographer</dt><dd>${esc(m.mk||'—')}</dd></div>
+        <div><dt>Date</dt><dd>${m.y||'—'}</dd></div>
+        <div><dt>Region</dt><dd>${esc(m.r)}${m.country?' · '+esc(m.country):''}</dd></div>
+        <div><dt>Technique</dt><dd>Copper engraving</dd></div>
+      </div>
+      <div class="pdp-desc"><h3>Description</h3>${descHtml}</div>
+    </div>`;
+  // thumbnail switching
+  const galImg=document.getElementById('galImg');
+  document.querySelectorAll('.gal-thumb').forEach(t=>t.onclick=()=>{
+    document.querySelectorAll('.gal-thumb').forEach(x=>x.classList.remove('on'));t.classList.add('on');
+    galImg.src=wixFit(t.dataset.full,1100,85);galImg.dataset.full=t.dataset.full;
+  });
+  galImg.dataset.full=m.img;
+  document.getElementById('galMain').onclick=()=>openViewer(galImg.dataset.full||m.img,m.t,(m.mk||'')+(m.y?' · '+m.y:''));
+  // related
+  document.getElementById('relRegion').textContent=m.r;
+  const rel=CAT.filter(x=>x.r===m.r&&x.id!==m.id).slice(0,4);
+  document.getElementById('relGrid').innerHTML=rel.map(x=>`
+    <a class="rcard" href="product.html?id=${x.id}">
+      <div class="rcard-media"><img src="${wixImg(x.img,360,450,70)}" alt="${esc(x.t)}" loading="lazy" onerror="this.style.visibility='hidden'"></div>
+      <div class="rcard-body"><div class="rg">${esc(x.r)} · ${x.y||''}</div><h3>${esc(x.t)}</h3><div class="pr">${x.price>0?euro(x.price):'On request'}</div></div>
+    </a>`).join('');
+}
+render();
+
+/* ===== zoom viewer (high-res) ===== */
+(function(){
+  const vwr=document.getElementById('vwr'),stage=document.getElementById('vwrStage'),canvas=document.getElementById('vwrCanvas'),
+        load=document.getElementById('vwrLoad'),pct=document.getElementById('vwrPct'),elTitle=document.getElementById('vwrTitle'),elMaker=document.getElementById('vwrMaker');
+  let scale=1,minScale=1,maxScale=8,tx=0,ty=0,natW=0,natH=0;
+  function apply(){canvas.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';pct.textContent=Math.round(scale/minScale*100)+'%';}
+  function fit(){const sw=stage.clientWidth,sh=stage.clientHeight;if(!natW||!natH){minScale=scale=1;tx=ty=0;apply();return;}
+    const fs=Math.min(sw/natW,sh/natH)*0.96;minScale=fs;scale=fs;maxScale=fs*16;tx=(sw-natW*fs)/2;ty=(sh-natH*fs)/2;apply();}
+  window.openViewer=function(url,title,maker){elTitle.textContent=title||'';elMaker.textContent=maker||'';canvas.innerHTML='';natW=natH=0;scale=1;tx=ty=0;
+    vwr.classList.add('open');vwr.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';load.textContent='Loading high-resolution scan…';
+    const el=new Image();el.onload=function(){natW=el.naturalWidth;natH=el.naturalHeight;canvas.appendChild(el);load.textContent='';fit();};
+    el.onerror=function(){load.textContent='Image unavailable.';};el.alt=title||'';el.src=wixFit(url,2600,92);};
+  function close(){vwr.classList.remove('open');vwr.setAttribute('aria-hidden','true');document.body.style.overflow='';canvas.innerHTML='';}
+  function zoomAt(mx,my,f){const ns=Math.min(Math.max(scale*f,minScale),maxScale);tx=mx-(mx-tx)*(ns/scale);ty=my-(my-ty)*(ns/scale);scale=ns;apply();}
+  document.getElementById('vwrClose').onclick=close;document.getElementById('vwrReset').onclick=fit;
+  document.getElementById('vwrIn').onclick=()=>zoomAt(stage.clientWidth/2,stage.clientHeight/2,1.4);
+  document.getElementById('vwrOut').onclick=()=>zoomAt(stage.clientWidth/2,stage.clientHeight/2,1/1.4);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&vwr.classList.contains('open'))close();});
+  stage.addEventListener('wheel',e=>{e.preventDefault();const r=stage.getBoundingClientRect();zoomAt(e.clientX-r.left,e.clientY-r.top,e.deltaY<0?1.15:1/1.15);},{passive:false});
+  stage.addEventListener('dblclick',e=>{const r=stage.getBoundingClientRect();zoomAt(e.clientX-r.left,e.clientY-r.top,scale<minScale*3?2.4:1/2.4);});
+  const pts=new Map();let pinch=0,dragging=false,lx=0,ly=0;
+  stage.addEventListener('pointerdown',e=>{pts.set(e.pointerId,{x:e.clientX,y:e.clientY});try{stage.setPointerCapture(e.pointerId);}catch(_){}
+    if(pts.size===1){dragging=true;lx=e.clientX;ly=e.clientY;stage.classList.add('grabbing');}else if(pts.size===2){dragging=false;const a=[...pts.values()];pinch=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);}});
+  stage.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;pts.set(e.pointerId,{x:e.clientX,y:e.clientY});const a=[...pts.values()];
+    if(pts.size===2){const nd=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);const r=stage.getBoundingClientRect();const mx=(a[0].x+a[1].x)/2-r.left,my=(a[0].y+a[1].y)/2-r.top;if(pinch)zoomAt(mx,my,nd/pinch);pinch=nd;}
+    else if(dragging){tx+=e.clientX-lx;ty+=e.clientY-ly;lx=e.clientX;ly=e.clientY;apply();}});
+  function endPtr(e){pts.delete(e.pointerId);if(pts.size<2)pinch=0;if(pts.size===0){dragging=false;stage.classList.remove('grabbing');}else if(pts.size===1){const v=[...pts.values()][0];lx=v.x;ly=v.y;dragging=true;}}
+  stage.addEventListener('pointerup',endPtr);stage.addEventListener('pointercancel',endPtr);
+  addEventListener('resize',()=>{if(vwr.classList.contains('open'))fit();});
+})();
+</script>
+</body>
+</html>
