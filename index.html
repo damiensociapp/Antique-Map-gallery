@@ -209,8 +209,10 @@ body::before{
 .cont-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--line)}
 .cont{background:var(--parchment-2);padding:38px 26px 32px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;cursor:pointer;transition:background .45s var(--ease),transform .45s var(--ease)}
 .cont:hover{background:var(--ink)}
-.cont-ico{width:76px;height:76px;color:var(--teal);transition:color .45s var(--ease),transform .55s var(--ease)}
-.cont:hover .cont-ico{color:var(--gold-soft);transform:scale(1.1) rotate(-4deg)}
+.cont-ico{position:relative;width:88px;height:88px;border-radius:50%;overflow:hidden;border:1px solid var(--gold);color:var(--teal);background:var(--parchment-3);transition:transform .55s var(--ease),box-shadow .45s var(--ease);box-shadow:0 0 0 4px var(--parchment-2)}
+.cont:hover .cont-ico{transform:scale(1.07);box-shadow:0 0 0 4px var(--ink)}
+.cont-ico svg{position:absolute;inset:0;width:100%;height:100%;padding:18px}
+.cont-ico .cont-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
 .cont b{font-family:"Fraunces",serif;font-weight:400;font-size:18px;color:var(--ink);transition:color .45s var(--ease)}
 .cont:hover b{color:var(--parchment-2)}
 .cont span{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink-mut);transition:color .45s var(--ease)}
@@ -240,7 +242,8 @@ body::before{
 .story-visual .frame-outer{border:1px solid var(--line);padding:18px;background:var(--parchment-2);border-radius:var(--r);box-shadow:var(--shadow)}
 .story-visual .frame-inner{border:1px solid var(--gold);border-width:1px;padding:0;background:var(--parchment-3);overflow:hidden;position:relative}
 .story-visual svg{width:100%;display:block}
-.story-cap{position:absolute;bottom:-18px;right:24px;background:var(--ink);color:var(--parchment-2);padding:14px 22px;border-radius:var(--r);font-family:"Cormorant Garamond",serif;font-style:italic;font-size:15px}
+.story-visual .story-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.story-cap{position:absolute;bottom:-18px;right:24px;z-index:2;background:var(--ink);color:var(--parchment-2);padding:14px 22px;border-radius:var(--r);font-family:"Cormorant Garamond",serif;font-style:italic;font-size:15px}
 .story-cap em{color:var(--gold-soft);font-weight:500;font-style:normal;letter-spacing:1px;font-family:"Inter";font-size:11px;text-transform:uppercase}
 .story-text h2{font-size:clamp(34px,4.4vw,58px);font-weight:300}
 .story-text h2 em{font-style:italic;color:var(--teal)}
@@ -260,7 +263,8 @@ body::before{
 .article{cursor:pointer}
 .article-media{aspect-ratio:16/11;overflow:hidden;border-radius:var(--r);background:var(--parchment-3);position:relative;border:1px solid var(--line-2)}
 .article-media svg{width:100%;height:100%;transition:transform .8s var(--ease)}
-.article:hover .article-media svg{transform:scale(1.06)}
+.article-media .article-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .8s var(--ease)}
+.article:hover .article-media svg,.article:hover .article-media .article-photo{transform:scale(1.06)}
 .article-cat{margin-top:22px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-deep);font-weight:500}
 .article h3{font-size:24px;font-weight:400;margin-top:12px;line-height:1.18;transition:color .3s var(--ease)}
 .article:hover h3{color:var(--teal)}
@@ -367,8 +371,8 @@ body::before{
       <a href="stock.html">Stock</a>
       <a href="#collection">Featured</a>
       <a href="#continents">By Region</a>
-      <a href="#provenance">Provenance</a>
       <a href="#story">The Gallery</a>
+      <a href="contact.html">Contact</a>
     </nav>
     <div class="navact">
       <button class="icon-btn" aria-label="Search">
@@ -394,11 +398,11 @@ body::before{
     </button>
   </div>
   <nav>
+    <a href="stock.html" data-mclose><em>Stock</em></a>
     <a href="#collection" data-mclose>The <em>Collection</em></a>
     <a href="#continents" data-mclose>By <em>Region</em></a>
-    <a href="#provenance" data-mclose><em>Provenance</em></a>
     <a href="#story" data-mclose>The <em>Gallery</em></a>
-    <a href="#journal" data-mclose><em>Journal</em></a>
+    <a href="contact.html" data-mclose><em>Contact</em></a>
   </nav>
 </div>
 
@@ -463,7 +467,7 @@ body::before{
     <h1 class="rv in">Cartography from the<br><em>Age of Discovery</em></h1>
     <p class="hero-sub rv in rv-d1">Authentic maps, sea charts and atlases engraved by the master cartographers of Europe — hand-selected, meticulously described, and delivered with a Certificate of Authenticity. A world of history, framed.</p>
     <div class="hero-cta rv in rv-d2">
-      <a href="#collection" class="btn btn-gold">Explore the collection <span class="ar">→</span></a>
+      <a href="stock.html" class="btn btn-gold">Explore the collection <span class="ar">→</span></a>
       <a href="#provenance" class="btn btn-outline-light">On authenticity</a>
     </div>
     <div class="hero-stats rv in rv-d3">
@@ -644,9 +648,10 @@ body::before{
               <!-- sea monster flourish -->
               <path d="M420 130q10-10 22-4t6 20q10-6 16 2" stroke="#93502F" stroke-width=".7" fill="none" opacity=".5"/>
             </svg>
+            <img class="story-photo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/OrteliusWorldMap1570.jpg/1000px-OrteliusWorldMap1570.jpg" data-fb="https://commons.wikimedia.org/wiki/Special:FilePath/OrteliusWorldMap1570.jpg?width=1000" alt="Typus Orbis Terrarum — Abraham Ortelius, 1570" loading="lazy" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.removeAttribute('data-fb')}else{this.remove()}">
           </div>
         </div>
-        <span class="story-cap"><em>Featured</em> · Nova Totius Terrarum, 1662</span>
+        <span class="story-cap"><em>Featured</em> · Typus Orbis Terrarum, Ortelius 1570</span>
       </div>
 
       <div class="story-text rv rv-d1">
@@ -779,14 +784,18 @@ function fpAlt(name,w){return "https://commons.wikimedia.org/wiki/Special:FilePa
 function photoTag(name,w,cls,alt){return `<img class="${cls}" src="${fp(name,w)}" data-fb="${fpAlt(name,w)}" alt="${alt}" loading="lazy" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.removeAttribute('data-fb')}else{this.remove()}">`;}
 
 const CONTINENTS = [
-  {n:"Europe",c:"128 maps"},{n:"The Americas",c:"96 maps"},{n:"Asia",c:"74 maps"},
-  {n:"Africa",c:"52 maps"},{n:"World",c:"48 maps"},{n:"Celestial",c:"22 maps"},
+  {n:"Europe",c:"128 maps",img:"1644 Europa Recens Blaeu.jpg"},
+  {n:"The Americas",c:"96 maps",img:"Americae Sive Novi Orbis, Nova Descriptio, 1579.jpg"},
+  {n:"Asia",c:"74 maps",img:"1570 Ortelius Map of Asia (first edition) - Geographicus - AsiaeNovaDescriptio-ortelius.jpg"},
+  {n:"Africa",c:"52 maps",img:"Bodleian Libraries, Africae Tabula Nova, 1570.jpg"},
+  {n:"World",c:"48 maps",img:"Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg"},
+  {n:"Celestial",c:"22 maps",img:"Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg"},
 ];
 
 const ARTICLES = [
-  {cat:"Cartographers",title:"Blaeu vs. Janssonius — the great atlas rivalry",date:"June 2026"},
-  {cat:"Collecting",title:"How to read the condition of a 400-year-old map",date:"May 2026"},
-  {cat:"From the Archive",title:"Sea monsters, and why cartographers drew them",date:"April 2026"},
+  {cat:"Cartographers",title:"Blaeu vs. Janssonius — the great atlas rivalry",date:"June 2026",img:"Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg"},
+  {cat:"Collecting",title:"How to read the condition of a 400-year-old map",date:"May 2026",img:"1572 Europa Ortelius.jpg"},
+  {cat:"From the Archive",title:"Sea monsters, and why cartographers drew them",date:"April 2026",img:"Nova totius Terrarum Orbis geographica ac hydrographica tabula (Hendrik Hondius).jpg"},
 ];
 
 /* ---- SVG generators (deterministic, seedable) — antique engraving style ---- */
@@ -898,7 +907,7 @@ function contIcon(name){
   const p=shapes[name]||shapes["World"];
   const fill=name==="World"||name==="Celestial"?'none':'currentColor';
   const extra=name==="World"?'stroke="currentColor" stroke-width="1.4" fill="none"':(name==="Celestial"?'fill="currentColor"':'fill="currentColor" stroke="currentColor" stroke-width=".5"');
-  return `<svg class="cont-ico" viewBox="0 0 64 64" ${name==='World'?'':''}><path d="${p}" ${extra}/></svg>`;
+  return `<svg viewBox="0 0 64 64"><path d="${p}" ${extra}/></svg>`;
 }
 
 function articleSVG(seed){
@@ -939,11 +948,14 @@ document.getElementById("collGrid").innerHTML = MAPS.map((m,i)=>`
   </article>`).join("");
 
 document.getElementById("contGrid").innerHTML = CONTINENTS.map(c=>`
-  <div class="cont">${contIcon(c.n)}<b>${c.n}</b><span>${c.c}</span></div>`).join("");
+  <a class="cont" href="stock.html">
+    <span class="cont-ico">${contIcon(c.n)}${c.img?photoTag(c.img,180,'cont-photo',c.n+' — antique map'):''}</span>
+    <b>${c.n}</b><span>${c.c}</span>
+  </a>`).join("");
 
 document.getElementById("jrnlGrid").innerHTML = ARTICLES.map((a,i)=>`
   <article class="article rv rv-d${i+1}">
-    <div class="article-media">${articleSVG(i+2)}</div>
+    <div class="article-media">${articleSVG(i+2)}${a.img?photoTag(a.img,520,'article-photo',a.title):''}</div>
     <div class="article-cat">${a.cat}</div>
     <h3>${a.title}</h3>
     <div class="date">${a.date}</div>
