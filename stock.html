@@ -94,6 +94,29 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
 .card:hover .card-media svg{transform:scale(1.05)}
 .card-media .card-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .8s var(--ease)}
 .card:hover .card-media .card-photo{transform:scale(1.05)}
+.card-media{cursor:zoom-in}
+.card-zoom{position:absolute;right:12px;bottom:12px;z-index:3;width:36px;height:36px;border-radius:50%;background:rgba(26,24,22,.82);color:var(--parchment-2);display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(6px);transition:.35s var(--ease);pointer-events:none}
+.card:hover .card-zoom{opacity:1;transform:none}
+.card-zoom svg{width:17px;height:17px}
+/* ===== MAP ZOOM VIEWER ===== */
+.vwr{position:fixed;inset:0;z-index:100000;background:rgba(20,18,16,.965);display:none;flex-direction:column}
+.vwr.open{display:flex}
+.vwr-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 22px;color:var(--parchment-2);border-bottom:1px solid rgba(203,174,121,.22)}
+.vwr-meta b{font-family:"Fraunces",serif;font-weight:400;font-size:18px;display:block;line-height:1.1}
+.vwr-meta span{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:13.5px;color:var(--gold-soft)}
+.vwr-ctrl{display:flex;align-items:center;gap:8px}
+.vwr-ctrl button{background:transparent;color:var(--parchment-2);border:1px solid rgba(203,174,121,.4);border-radius:6px;min-width:40px;height:40px;padding:0 12px;font-size:17px;line-height:1;cursor:pointer;font-family:"Inter";transition:.2s var(--ease)}
+.vwr-ctrl button:hover{background:var(--gold);color:var(--ink);border-color:var(--gold)}
+.vwr-ctrl #vwrReset{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase}
+.vwr-ctrl #vwrPct{color:var(--gold-soft);font-size:12px;min-width:52px;text-align:center;font-variant-numeric:tabular-nums;border:0}
+.vwr-stage{flex:1;overflow:hidden;position:relative;cursor:grab;touch-action:none}
+.vwr-stage.grabbing{cursor:grabbing}
+.vwr-canvas{position:absolute;top:0;left:0;transform-origin:0 0;will-change:transform}
+.vwr-canvas img{display:block;max-width:none}
+.vwr-canvas svg{display:block;background:#E7DECB}
+.vwr-load{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:var(--gold-soft);font-family:"Cormorant Garamond",serif;font-style:italic;font-size:16px;text-align:center;max-width:80%}
+.vwr-hint{padding:12px;text-align:center;color:rgba(247,242,230,.5);font-size:11px;letter-spacing:.03em}
+@media(max-width:640px){.vwr-meta b{font-size:14px}.vwr-hint{display:none}.vwr-ctrl button{min-width:36px;height:36px}}
 .card-tag{position:absolute;top:13px;left:13px;z-index:3;background:var(--ink);color:var(--parchment-2);font-size:8.5px;letter-spacing:1.6px;text-transform:uppercase;padding:5px 10px;border-radius:2px;font-weight:500}
 .card-tag.sold{background:var(--rust)}
 .card-tag.reserved{background:var(--gold-deep)}
@@ -228,6 +251,25 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
   </div>
 </footer>
 
+<!-- ============ MAP ZOOM VIEWER ============ -->
+<div class="vwr" id="vwr" aria-hidden="true" role="dialog" aria-label="Map viewer">
+  <div class="vwr-bar">
+    <div class="vwr-meta"><b id="vwrTitle"></b><span id="vwrMaker"></span></div>
+    <div class="vwr-ctrl">
+      <button id="vwrOut" aria-label="Zoom out">–</button>
+      <span id="vwrPct">100%</span>
+      <button id="vwrIn" aria-label="Zoom in">+</button>
+      <button id="vwrReset">Reset</button>
+      <button id="vwrClose" aria-label="Close viewer">✕</button>
+    </div>
+  </div>
+  <div class="vwr-stage" id="vwrStage">
+    <div class="vwr-canvas" id="vwrCanvas"></div>
+    <div class="vwr-load" id="vwrLoad"></div>
+  </div>
+  <div class="vwr-hint">Scroll / pinch to zoom · drag to pan · double-click to zoom · Esc to close</div>
+</div>
+
 <script>
 /* ============ STOCK DATA ============ */
 const STOCK = [
@@ -356,11 +398,12 @@ function render(){
   if(!list.length){grid.innerHTML="";empty.style.display="block";return;}
   empty.style.display="none";
   grid.innerHTML=list.map((m,i)=>{const st=statusOf(m);const sold=st==="sold";const seed=STOCK.indexOf(m)+1;
-    return `<article class="card" style="animation-delay:${Math.min(i*35,420)}ms">
-      <div class="card-media">
+    return `<article class="card" style="animation-delay:${Math.min(i*35,420)}ms" data-img="${m.img||''}" data-t="${m.t}" data-mk="${m.mk} · ${m.r}, ${m.y}">
+      <div class="card-media" data-zoom>
         ${sold?'<span class="card-tag sold">Sold</span>':st==="reserved"?'<span class="card-tag reserved">Reserved</span>':m.tag?`<span class="card-tag">${m.tag}</span>`:''}
         ${mapSVG(seed,m.kind,m.mon)}
         ${m.img?photoTag(m.img,600,'card-photo',m.t+' — '+m.mk):''}
+        <span class="card-zoom" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3M11 8v6M8 11h6"/></svg></span>
       </div>
       <div class="card-body">
         <div class="card-region">${m.r} · ${m.y}</div>
@@ -368,7 +411,7 @@ function render(){
         <div class="card-meta">${m.mk}</div>
         <div class="card-foot">
           <div class="card-price">${sold?'<small>Sold</small>':euro(m.price)}</div>
-          <a href="#" class="card-view">${sold?'Enquire':'View'} →</a>
+          <a href="#" class="card-view" data-zoom>${sold?'Enquire':'View'} →</a>
         </div>
       </div>
     </article>`;}).join("");
@@ -376,6 +419,51 @@ function render(){
 function resetAll(){state.region.clear();state.century.clear();state.price.clear();state.status.clear();buildChips();render();}
 document.getElementById("sort").onchange=e=>{state.sort=e.target.value;render();};
 buildChips();render();
+
+/* ============ MAP ZOOM VIEWER ============ */
+(function(){
+  const vwr=document.getElementById('vwr'),stage=document.getElementById('vwrStage'),canvas=document.getElementById('vwrCanvas'),
+        load=document.getElementById('vwrLoad'),pct=document.getElementById('vwrPct'),
+        elTitle=document.getElementById('vwrTitle'),elMaker=document.getElementById('vwrMaker');
+  let scale=1,minScale=1,maxScale=8,tx=0,ty=0,natW=0,natH=0,pendingSVG='';
+  function apply(){canvas.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';pct.textContent=Math.round(scale/minScale*100)+'%';}
+  function fit(){const sw=stage.clientWidth,sh=stage.clientHeight;if(!natW||!natH){minScale=scale=1;tx=ty=0;apply();return;}
+    const fs=Math.min(sw/natW,sh/natH)*0.94;minScale=fs;scale=fs;maxScale=fs*14;tx=(sw-natW*fs)/2;ty=(sh-natH*fs)/2;apply();}
+  function showSVG(){if(!pendingSVG){load.textContent='Image not available in this preview — it appears on the live site.';return;}
+    load.textContent='';canvas.innerHTML=pendingSVG;const svg=canvas.querySelector('svg');natW=900;natH=857;if(svg){svg.style.width=natW+'px';svg.style.height=natH+'px';}fit();}
+  function loadImg(o){load.textContent='Loading high-resolution scan…';const el=new Image();
+    el.onload=function(){natW=el.naturalWidth;natH=el.naturalHeight;canvas.innerHTML='';canvas.appendChild(el);load.textContent='';fit();};
+    el.onerror=function(){if(el.dataset.fb){el.src=el.dataset.fb;el.removeAttribute('data-fb');}else{showSVG();}};
+    if(o.fb)el.dataset.fb=o.fb;el.alt=elTitle.textContent;el.src=o.src;}
+  window.openViewer=function(imgName,title,maker,svg){elTitle.textContent=title||'';elMaker.textContent=maker||'';pendingSVG=svg||'';
+    canvas.innerHTML='';natW=natH=0;scale=1;tx=ty=0;load.textContent='';
+    vwr.classList.add('open');vwr.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';
+    if(imgName&&typeof fp==='function'){loadImg({src:fp(imgName,3000),fb:(typeof fpAlt==='function')?fpAlt(imgName,3000):''});}else{showSVG();}};
+  function close(){vwr.classList.remove('open');vwr.setAttribute('aria-hidden','true');document.body.style.overflow='';canvas.innerHTML='';}
+  function zoomAt(mx,my,f){const ns=Math.min(Math.max(scale*f,minScale),maxScale);tx=mx-(mx-tx)*(ns/scale);ty=my-(my-ty)*(ns/scale);scale=ns;apply();}
+  document.getElementById('vwrClose').onclick=close;document.getElementById('vwrReset').onclick=fit;
+  document.getElementById('vwrIn').onclick=()=>zoomAt(stage.clientWidth/2,stage.clientHeight/2,1.4);
+  document.getElementById('vwrOut').onclick=()=>zoomAt(stage.clientWidth/2,stage.clientHeight/2,1/1.4);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&vwr.classList.contains('open'))close();});
+  stage.addEventListener('wheel',e=>{e.preventDefault();const r=stage.getBoundingClientRect();zoomAt(e.clientX-r.left,e.clientY-r.top,e.deltaY<0?1.15:1/1.15);},{passive:false});
+  stage.addEventListener('dblclick',e=>{const r=stage.getBoundingClientRect();zoomAt(e.clientX-r.left,e.clientY-r.top,scale<minScale*3?2.4:1/2.4);});
+  const pts=new Map();let pinch=0,dragging=false,lx=0,ly=0;
+  stage.addEventListener('pointerdown',e=>{pts.set(e.pointerId,{x:e.clientX,y:e.clientY});try{stage.setPointerCapture(e.pointerId);}catch(_){}
+    if(pts.size===1){dragging=true;lx=e.clientX;ly=e.clientY;stage.classList.add('grabbing');}else if(pts.size===2){dragging=false;const a=[...pts.values()];pinch=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);}});
+  stage.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;pts.set(e.pointerId,{x:e.clientX,y:e.clientY});const a=[...pts.values()];
+    if(pts.size===2){const nd=Math.hypot(a[0].x-a[1].x,a[0].y-a[1].y);const r=stage.getBoundingClientRect();const mx=(a[0].x+a[1].x)/2-r.left,my=(a[0].y+a[1].y)/2-r.top;if(pinch)zoomAt(mx,my,nd/pinch);pinch=nd;}
+    else if(dragging){tx+=e.clientX-lx;ty+=e.clientY-ly;lx=e.clientX;ly=e.clientY;apply();}});
+  function endPtr(e){pts.delete(e.pointerId);if(pts.size<2)pinch=0;if(pts.size===0){dragging=false;stage.classList.remove('grabbing');}else if(pts.size===1){const v=[...pts.values()][0];lx=v.x;ly=v.y;dragging=true;}}
+  stage.addEventListener('pointerup',endPtr);stage.addEventListener('pointercancel',endPtr);
+  addEventListener('resize',()=>{if(vwr.classList.contains('open'))fit();});
+  document.addEventListener('click',e=>{
+    if(e.target.closest('.card-fav'))return;
+    const trg=e.target.closest('[data-zoom]');if(!trg)return;
+    const card=trg.closest('.card');if(!card)return;e.preventDefault();
+    const svg=card.querySelector('.card-media > svg');
+    openViewer(card.dataset.img,card.dataset.t,card.dataset.mk,svg?svg.outerHTML:'');
+  });
+})();
 </script>
 </body>
 </html>
