@@ -539,16 +539,16 @@ body::before{
       <div class="showcase-map rv" id="worldMap"></div>
       <div class="showcase-text rv rv-d1">
         <div class="sec-head" style="grid-template-columns:auto 1fr"><span class="eyebrow">Piece of the month</span><span class="hr"></span></div>
-        <h2 style="margin-top:22px">Nova et Accuratissima <em>Terrarum Orbis Tabula</em></h2>
-        <p class="showcase-lead">Joan Blaeu's double-hemisphere world map, Amsterdam, 1664 — copper-engraved and hand-coloured, its corners crowned with allegories of the four seasons and the four elements. A high point of Dutch Golden-Age cartography.</p>
+        <h2 style="margin-top:22px" id="scTitle">Piece of the month</h2>
+        <p class="showcase-lead" id="scLead"></p>
         <dl class="spec">
-          <div><dt>Cartographer</dt><dd>Joan Blaeu</dd></div>
-          <div><dt>Date &amp; place</dt><dd>1664 · Amsterdam</dd></div>
-          <div><dt>Technique</dt><dd>Copper engraving, hand colour</dd></div>
-          <div><dt>Dimensions</dt><dd>c. 41 × 55 cm (sheet)</dd></div>
+          <div><dt>Cartographer</dt><dd id="scMaker">—</dd></div>
+          <div><dt>Date</dt><dd id="scDate">—</dd></div>
+          <div><dt>Region</dt><dd id="scRegion">—</dd></div>
+          <div><dt>Technique</dt><dd>Copper engraving</dd></div>
         </dl>
         <div class="showcase-cta">
-          <span class="showcase-price">€ 12,500</span>
+          <span class="showcase-price" id="scPrice">On request</span>
           <a href="stock.html" class="btn btn-solid">View in stock <span class="ar">→</span></a>
         </div>
       </div>
@@ -802,14 +802,15 @@ body::before{
 
 <script>
 /* ============ DATA — collection, continents, journal ============ */
-const MAPS = [
-  {region:"World · Oval Projection",title:"Typus Orbis Terrarum",maker:"Abraham Ortelius · Antwerp, 1570",price:"€ 8,500",tag:"Iconic",monster:true,kind:"archipelago",img:"OrteliusWorldMap1570.jpg",desc:"The world map that opened the first modern atlas, the Theatrum Orbis Terrarum — an oval projection framed by Cicero's meditation on the smallness of human empire."},
-  {region:"Europe · Carte à figures",title:"Europa Recens Descripta",maker:"Willem Blaeu · Amsterdam, c. 1644",price:"€ 2,600",tag:"New",kind:"continent",img:"1644 Europa Recens Blaeu.jpg",desc:"A carte-à-figures of Europe, its borders lined with engraved city views and figures in regional costume."},
-  {region:"The Americas",title:"Americae Sive Novi Orbis",maker:"Abraham Ortelius · Antwerp, 1579",price:"€ 5,900",tag:"Rare",monster:true,kind:"coast",img:"Americae Sive Novi Orbis, Nova Descriptio, 1579.jpg",desc:"One of the most influential early maps of the Americas, showing the bulging South-American coastline of sixteenth-century knowledge."},
-  {region:"Asia",title:"Asiae Nova Descriptio",maker:"Abraham Ortelius · Antwerp, 1570",price:"€ 1,900",tag:null,kind:"coast",img:"1570 Ortelius Map of Asia (first edition) - Geographicus - AsiaeNovaDescriptio-ortelius.jpg",desc:"Ortelius's foundational map of Asia, from the first edition of the Theatrum Orbis Terrarum."},
-  {region:"Africa",title:"Africae Tabula Nova",maker:"Abraham Ortelius · Antwerp, 1570",price:"€ 1,750",tag:null,kind:"continent",img:"Bodleian Libraries, Africae Tabula Nova, 1570.jpg",desc:"An early separately-issued atlas map of Africa, richly engraved with lions, elephants and imagined interior kingdoms."},
-  {region:"Celestial",title:"Planisphaerium Arateum",maker:"Andreas Cellarius · Amsterdam, 1660",price:"€ 4,200",tag:null,kind:"archipelago",img:"Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg",desc:"A star chart from Cellarius's Harmonia Macrocosmica — widely held to be the most beautiful celestial atlas ever printed."},
-];
+const FEATURED=[{"t": "World Map", "mk": "Pieter van der Aa", "r": "World", "country": "", "y": 1713, "c": 18, "price": 5000, "img": "https://static.wixstatic.com/media/d90944_c0008f8ddc2049a39494c73e6331022a~mv2.jpg", "ribbon": "", "desc": "This beautiful and very rare contempary hand coloured map 'Nova Orbis Terraquei Tabula Accuratissime Delineata' by Pieter van der Aa from the atlas 'Le Nouveau Theatre' which was published in Leiden in 1713, is a detailed and striking World map. This is a very sought-after map. Pieter van der Aa (1659-1733) was a Dutch cartographer as wel", "kind": "archipelago"}, {"t": "Italy, Venice", "mk": "Donato Bertelli", "r": "Europe", "country": "Italy", "y": 1545, "c": 16, "price": 9500, "img": "https://static.wixstatic.com/media/d90944_eab7a9894e2e4db6979296e1eff0b8aa~mv2.jpg", "ribbon": "", "desc": "Beautiful bird’s-eye of Venice, with topographical legend. This spectacular view is a separate publication by Donato Bertelli, first described in Peter H Meurer’s “The Strabo Illustrates Atlas 1545-1571”. This is the first and only state. The copper engraving is in excellent condition and as often the case with maps from the Laferi school", "kind": "continent"}, {"t": "South America - La Descrittione Di Tutto Il Peru", "mk": "Paolo Forlani", "r": "Americas", "country": "", "y": 1615, "c": 17, "price": 25000, "img": "https://static.wixstatic.com/media/d90944_f11bc431be284d299421bcf9127a4ee8~mv2.jpg", "ribbon": "", "desc": "This rare map of South America, created by Paolo Forlani, stands out as the first detailed representation of the continent's interior and is the sole map of South America produced by the Lafreri School. Distinguished as one of the earliest printed continental maps of South America, it depicts the continent along with a significant portion", "kind": "coast"}, {"t": "Asia", "mk": "Pieter van der Aa", "r": "Asia", "country": "", "y": 1713, "c": 18, "price": 2250, "img": "https://static.wixstatic.com/media/d90944_01bca1b148cd4b6cbfe5eb42e8f9e259~mv2.jpg", "ribbon": "", "desc": "This beautiful and very rare contempary hand coloured map 'Asia in Praecipuas Ipsius partes Distributa ad Observationes...' by Pieter van der Aa from the atlas 'Le Nouveau Theatre' which was published in Leiden in 1713, is a detailed and charming map of Asia. Pieter van der Aa (1659-1733) was a Dutch cartographer as well as publisher who ", "kind": "coast"}, {"t": "Africa", "mk": "Pieter van der Aa", "r": "Africa", "country": "", "y": 1713, "c": 18, "price": 2250, "img": "https://static.wixstatic.com/media/d90944_425c6ba6b2254934a57eb22125148025~mv2.jpg", "ribbon": "", "desc": "This beautiful and very rare contempary hand coloured map 'Africa in Praecipuas ipsius Partes Distributa, ad Observationes Academiae Regiae Scientiarum, et Exquisitissimas Tabulas, quae nunquam Antehac Lucem Viderunt, Excusa A, Cum privilegio Ordinum Hollandiae et Westfrisiae' by Pieter van der Aa from the atlas 'Le Nouveau Theatre' which", "kind": "continent"}, {"t": "Theatrum Orbis Terrarum - 1612", "mk": "Abraham Ortelius", "r": "Atlases", "country": "", "y": 1612, "c": 17, "price": 225000, "img": "https://static.wixstatic.com/media/d90944_d80b931c281a4879b640a2023def1828~mv2.jpg", "ribbon": "", "desc": "Abraham Ortelius, Theatrum Orbis Terrarum. Antwerp, Plantin, 1612. Folio. (26), 128, (4), XL, 1 leaf. With 2 engraved titles, 1 title vignette, 1 portrait, 7 (of which 5 are double-page) copper plates, 166 double-page engraved maps, 5 text engravings, all in EARLY COLOURING. Contemporary blind-tooled pigskin over unbevelled wooden boards,", "kind": "archipelago"}];
+const SHOWCASE={"t": "Theatrum Orbis Terrarum - 1612", "mk": "Abraham Ortelius", "y": 1612, "price": 225000, "img": "https://static.wixstatic.com/media/d90944_d80b931c281a4879b640a2023def1828~mv2.jpg", "desc": "Abraham Ortelius, Theatrum Orbis Terrarum. Antwerp, Plantin, 1612. Folio. (26), 128, (4), XL, 1 leaf. With 2 engraved titles, 1 title vignette, 1 portrait, 7 (of which 5 are double-page) copper plates, 166 double-page engraved maps, 5 text engravings, all in EARLY COLOURING. Contemporary blind-tooled pigskin over unbevelled wooden boards,", "dims": "", "r": "Atlases"};
+const REGIONS_DATA=[{"n": "Europe", "c": "200 maps", "img": "https://static.wixstatic.com/media/d90944_eab7a9894e2e4db6979296e1eff0b8aa~mv2.jpg"}, {"n": "Americas", "c": "28 maps", "img": "https://static.wixstatic.com/media/d90944_f11bc431be284d299421bcf9127a4ee8~mv2.jpg"}, {"n": "Asia", "c": "27 maps", "img": "https://static.wixstatic.com/media/d90944_01bca1b148cd4b6cbfe5eb42e8f9e259~mv2.jpg"}, {"n": "Africa", "c": "8 maps", "img": "https://static.wixstatic.com/media/d90944_425c6ba6b2254934a57eb22125148025~mv2.jpg"}, {"n": "World", "c": "7 maps", "img": "https://static.wixstatic.com/media/d90944_c0008f8ddc2049a39494c73e6331022a~mv2.jpg"}, {"n": "Atlases", "c": "6 maps", "img": "https://static.wixstatic.com/media/d90944_d80b931c281a4879b640a2023def1828~mv2.jpg"}, {"n": "Polar Region", "c": "3 maps", "img": "https://static.wixstatic.com/media/d90944_407c55722e14415bb262f64b126e4160~mv2.jpg"}];
+const MAPS = FEATURED.map(d=>({
+  region: d.r + (d.country? " · "+d.country : ""),
+  title: d.t, maker: (d.mk||"—") + (d.y? " · "+d.y : ""),
+  price: d.price>0 ? ("\u20ac "+d.price.toLocaleString("en-US")) : "On request",
+  tag: d.ribbon||null, kind: d.kind, monster:0, img:d.img, desc:d.desc, sold:false
+}));
 /* Real public-domain map photographs (Wikimedia Commons).
    WM maps each filename to its md5 shard (the /a/ab/ path segment used by upload.wikimedia.org),
    letting us build a DIRECT CDN url. 3-level fallback: direct upload -> Special:FilePath -> drawn SVG. */
@@ -826,18 +827,11 @@ const WM={
   "Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg":"0/08",
   "Cellarius Harmonia Macrocosmica - Scenographia Systematis Copernicani.jpg":"2/2c"
 };
-function fp(name,w){const u=encodeURIComponent(name.replace(/ /g,"_"));const d=WM[name];return d?`https://upload.wikimedia.org/wikipedia/commons/thumb/${d}/${u}/${w||800}px-${u}`:`https://commons.wikimedia.org/wiki/Special:FilePath/${u}?width=${w||800}`;}
-function fpAlt(name,w){return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(name.replace(/ /g,"_"))+"?width="+(w||800);}
+function fp(name,w){if(/^https?:\/\//.test(name))return name;const u=encodeURIComponent(name.replace(/ /g,"_"));const d=WM[name];return d?`https://upload.wikimedia.org/wikipedia/commons/thumb/${d}/${u}/${w||800}px-${u}`:`https://commons.wikimedia.org/wiki/Special:FilePath/${u}?width=${w||800}`;}
+function fpAlt(name,w){if(/^https?:\/\//.test(name))return "";return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(name.replace(/ /g,"_"))+"?width="+(w||800);}
 function photoTag(name,w,cls,alt){return `<img class="${cls}" src="${fp(name,w)}" data-fb="${fpAlt(name,w)}" alt="${alt}" loading="lazy" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.removeAttribute('data-fb')}else{this.remove()}">`;}
 
-const CONTINENTS = [
-  {n:"Europe",c:"128 maps",img:"1644 Europa Recens Blaeu.jpg"},
-  {n:"The Americas",c:"96 maps",img:"Americae Sive Novi Orbis, Nova Descriptio, 1579.jpg"},
-  {n:"Asia",c:"74 maps",img:"1570 Ortelius Map of Asia (first edition) - Geographicus - AsiaeNovaDescriptio-ortelius.jpg"},
-  {n:"Africa",c:"52 maps",img:"Bodleian Libraries, Africae Tabula Nova, 1570.jpg"},
-  {n:"World",c:"48 maps",img:"Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg"},
-  {n:"Celestial",c:"22 maps",img:"Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg"},
-];
+const CONTINENTS = REGIONS_DATA.slice(0,6);
 
 const ARTICLES = [
   {cat:"Cartographers",title:"Blaeu vs. Janssonius — the great atlas rivalry",date:"June 2026",img:"Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg"},
@@ -972,7 +966,15 @@ function articleSVG(seed){
 const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.3-9.3-8.5C1 8 2.6 5 5.6 5 7.6 5 9 6.4 12 9c3-2.6 4.4-4 6.4-4 3 0 4.6 3 2.9 6.5C19 15.7 12 20 12 20z"/></svg>';
 
 document.getElementById("worldMap").innerHTML = worldMapSVG() +
-  photoTag('Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg',1100,'showcase-photo','Nova Totius Terrarum Orbis — Willem Blaeu, 1662');
+  photoTag(SHOWCASE.img,1400,'showcase-photo',SHOWCASE.t);
+(function(){var S=SHOWCASE,g=id=>document.getElementById(id);
+  g("scTitle").textContent=S.t;
+  g("scLead").textContent=S.desc;
+  g("scMaker").textContent=S.mk||"—";
+  g("scDate").textContent=S.y||"—";
+  g("scRegion").textContent=S.r||"—";
+  g("scPrice").textContent=S.price>0?("€ "+S.price.toLocaleString("en-US")):"On request";
+})();
 
 document.getElementById("collGrid").innerHTML = MAPS.map((m,i)=>`
   <article class="card rv rv-d${(i%3)+1}" data-tilt data-img="${m.img}" data-t="${m.title}" data-mk="${m.maker}" data-desc="${(m.desc||'').replace(/"/g,'&quot;')}">
@@ -1115,7 +1117,7 @@ document.querySelectorAll("[data-mclose]").forEach(a=>a.onclick=closeMM);
   const show=document.getElementById('worldMap');
   if(show){show.style.cursor='zoom-in';show.addEventListener('click',()=>{
     const svg=show.querySelector('svg');
-    openViewer('Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg','Nova et Accuratissima Terrarum Orbis Tabula','Joan Blaeu · Amsterdam, 1664',svg?svg.outerHTML:'','Blaeu’s double-hemisphere world map, framed by allegories of the seasons and the four elements.');
+    openViewer(SHOWCASE.img,SHOWCASE.t,(SHOWCASE.mk||'')+(SHOWCASE.y?' · '+SHOWCASE.y:''),svg?svg.outerHTML:'',SHOWCASE.desc);
   });}
 })();
 </script>
