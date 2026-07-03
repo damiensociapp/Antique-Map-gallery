@@ -145,6 +145,12 @@ body::before{
 .marquee-item::after{content:"✦";font-style:normal;font-size:11px;color:var(--gold-soft)}
 @keyframes marq{to{transform:translateX(-50%)}}
 
+/* ============ REAL MAP PHOTO OVERLAY (falls back to SVG on error) ============ */
+.card-media .card-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+.card:hover .card-media .card-photo{transform:scale(1.045)}
+.card-media .card-photo{transition:transform .8s var(--ease)}
+.showcase-map .showcase-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+
 /* ============ SHOWCASE ============ */
 .showcase{background:var(--parchment-2)}
 .showcase-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:72px;align-items:center}
@@ -745,13 +751,16 @@ body::before{
 <script>
 /* ============ DATA — collection, continents, journal ============ */
 const MAPS = [
-  {region:"World · Double Hemisphere",title:"Nova Totius Terrarum Orbis",maker:"J. Blaeu · Amsterdam, 1662",price:"€ 4,850",tag:"New",monster:true,kind:"archipelago"},
-  {region:"Europe",title:"Europa Recens Descripta",maker:"W. Hondius · 1631, hand-coloured",price:"€ 2,300",tag:"New",kind:"continent"},
-  {region:"The Americas",title:"Americae Nova Tabula",maker:"Ortelius · Antwerp, 1595",price:"€ 6,200",tag:"Rare",monster:true,kind:"coast"},
-  {region:"Asia · Sea Chart",title:"India Orientalis",maker:"Jansson · 1652, portolan",price:"€ 3,100",tag:null,kind:"coast"},
-  {region:"Africa",title:"Africae Descriptio",maker:"Mercator / Hondius · 1619",price:"€ 2,750",tag:null,kind:"continent"},
-  {region:"Celestial",title:"Planisphaerium Coeleste",maker:"F. de Wit · 1670",price:"€ 5,400",tag:"Sold",sold:true,kind:"archipelago"},
+  {region:"World · Double Hemisphere",title:"Nova Totius Terrarum Orbis",maker:"J. Blaeu · Amsterdam, 1662",price:"€ 4,850",tag:"New",monster:true,kind:"archipelago",img:"Nova totius Terrarum Orbis geographica ac hydrographica tabula (Hendrik Hondius).jpg"},
+  {region:"Europe",title:"Europa Recens Descripta",maker:"W. Hondius · 1631, hand-coloured",price:"€ 2,300",tag:"New",kind:"continent",img:"1644 Europa Recens Blaeu.jpg"},
+  {region:"The Americas",title:"Americae Nova Tabula",maker:"Ortelius · Antwerp, 1595",price:"€ 6,200",tag:"Rare",monster:true,kind:"coast",img:"Americae Sive Novi Orbis, Nova Descriptio, 1579.jpg"},
+  {region:"Asia · Sea Chart",title:"India Orientalis",maker:"Jansson · 1652, portolan",price:"€ 3,100",tag:null,kind:"coast",img:"1570 Ortelius Map of Asia (first edition) - Geographicus - AsiaeNovaDescriptio-ortelius.jpg"},
+  {region:"Africa",title:"Africae Descriptio",maker:"Mercator / Hondius · 1619",price:"€ 2,750",tag:null,kind:"continent",img:"Bodleian Libraries, Africae Tabula Nova, 1570.jpg"},
+  {region:"Celestial",title:"Planisphaerium Coeleste",maker:"F. de Wit · 1670",price:"€ 5,400",tag:"Sold",sold:true,kind:"archipelago",img:"Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg"},
 ];
+/* Real public-domain map photos (Wikimedia Commons, Special:FilePath — stable, no hash needed).
+   Each <img> falls back to the drawn SVG via onerror, so a blocked/renamed file never breaks layout. */
+function fp(name,w){return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(name)+"?width="+(w||700);}
 
 const CONTINENTS = [
   {n:"Europe",c:"128 maps"},{n:"The Americas",c:"96 maps"},{n:"Asia",c:"74 maps"},
@@ -890,7 +899,8 @@ function articleSVG(seed){
 /* ---- render ---- */
 const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.3-9.3-8.5C1 8 2.6 5 5.6 5 7.6 5 9 6.4 12 9c3-2.6 4.4-4 6.4-4 3 0 4.6 3 2.9 6.5C19 15.7 12 20 12 20z"/></svg>';
 
-document.getElementById("worldMap").innerHTML = worldMapSVG();
+document.getElementById("worldMap").innerHTML = worldMapSVG() +
+  `<img class="showcase-photo" src="${fp('Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg',1100)}" alt="Nova Totius Terrarum Orbis — Willem Blaeu, 1662" loading="lazy" onerror="this.remove()">`;
 
 document.getElementById("collGrid").innerHTML = MAPS.map((m,i)=>`
   <article class="card rv rv-d${(i%3)+1}" data-tilt>
@@ -898,6 +908,7 @@ document.getElementById("collGrid").innerHTML = MAPS.map((m,i)=>`
       ${m.tag?`<span class="card-tag ${m.sold?'sold':''}">${m.tag}</span>`:''}
       <button class="card-fav" aria-label="Save">${heart}</button>
       ${mapSVG(i+1,m.kind,m.monster)}
+      <img class="card-photo" src="${fp(m.img,660)}" alt="${m.title} — ${m.maker}" loading="lazy" onerror="this.remove()">
       <span class="card-frame"></span>
     </div>
     <div class="card-body">

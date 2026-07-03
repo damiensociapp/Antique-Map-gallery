@@ -92,6 +92,8 @@ body::before{content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
 .card-media{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--parchment-3)}
 .card-media svg{width:100%;height:100%;transition:transform .8s var(--ease)}
 .card:hover .card-media svg{transform:scale(1.05)}
+.card-media .card-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;transition:transform .8s var(--ease)}
+.card:hover .card-media .card-photo{transform:scale(1.05)}
 .card-tag{position:absolute;top:13px;left:13px;z-index:3;background:var(--ink);color:var(--parchment-2);font-size:8.5px;letter-spacing:1.6px;text-transform:uppercase;padding:5px 10px;border-radius:2px;font-weight:500}
 .card-tag.sold{background:var(--rust)}
 .card-tag.reserved{background:var(--gold-deep)}
@@ -251,6 +253,19 @@ const STOCK = [
   {t:"Terra Sancta",r:"Asia",mk:"C. Adrichom",y:1590,c:16,price:3300,kind:"continent",tag:"Rare"},
 ];
 
+/* Real public-domain map photos (Wikimedia Commons, Special:FilePath). Each <img> falls
+   back to the drawn SVG via onerror, so a blocked/renamed file never breaks the grid. */
+const PHOTOS={
+  World:["OrteliusWorldMap1570.jpg","Nova et Accuratissima Terrarum Orbis Tabula (J.Blaeu, 1664).jpg","Nova totius Terrarum Orbis geographica ac hydrographica tabula (Hendrik Hondius).jpg"],
+  Europe:["1644 Europa Recens Blaeu.jpg","1572 Europa Ortelius.jpg"],
+  Americas:["Americae Sive Novi Orbis, Nova Descriptio, 1579.jpg","Theatrum Orbis Terrarum - Americae sive Novi Orbis, Nova Descriptio.jpg"],
+  Asia:["1570 Ortelius Map of Asia (first edition) - Geographicus - AsiaeNovaDescriptio-ortelius.jpg"],
+  Africa:["Bodleian Libraries, Africae Tabula Nova, 1570.jpg"],
+  Celestial:["Cellarius Harmonia Macrocosmica - Planisphaerium Arateum.jpg","Cellarius Harmonia Macrocosmica - Scenographia Systematis Copernicani.jpg"]
+};
+function fp(name,w){return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(name)+"?width="+(w||700);}
+(function assignPhotos(){const cnt={};STOCK.forEach(m=>{const a=PHOTOS[m.r]||[];if(!a.length)return;cnt[m.r]=(cnt[m.r]||0);m.img=a[cnt[m.r]%a.length];cnt[m.r]++;});})();
+
 const REGIONS=["World","Europe","Americas","Asia","Africa","Celestial"];
 const CENTURIES=[{k:16,l:"16th c."},{k:17,l:"17th c."},{k:18,l:"18th c."}];
 const PRICES=[{k:"a",l:"Under € 2,000",f:p=>p<2000},{k:"b",l:"€ 2,000–5,000",f:p=>p>=2000&&p<5000},{k:"c",l:"€ 5,000 +",f:p=>p>=5000}];
@@ -330,6 +345,7 @@ function render(){
       <div class="card-media">
         ${sold?'<span class="card-tag sold">Sold</span>':st==="reserved"?'<span class="card-tag reserved">Reserved</span>':m.tag?`<span class="card-tag">${m.tag}</span>`:''}
         ${mapSVG(seed,m.kind,m.mon)}
+        ${m.img?`<img class="card-photo" src="${fp(m.img,600)}" alt="${m.t} — ${m.mk}" loading="lazy" onerror="this.remove()">`:''}
       </div>
       <div class="card-body">
         <div class="card-region">${m.r} · ${m.y}</div>
