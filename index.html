@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antique Maps Gallery — Rare Cartography from the Age of Discovery</title>
+<meta name="description" content="A curated gallery of authentic antique maps, charts and atlases from the 15th to the 19th century. Every piece sold with a Certificate of Authenticity.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ANTIQUE MAPS GALLERY — Ultra-modern cartographic storefront
+   Fully self-contained. No external assets. Palette: parchment
+   / ink / antique gold / cartographic teal. All artwork is
+   hand-authored inline SVG — infinitely replicable.
+   ============================================================ */
+
+:root{
+  --parchment:#EFE8DA;
+  --parchment-2:#F7F2E6;
+  --parchment-3:#E7DECB;
+  --ink:#1A1816;
+  --ink-2:#2C2925;
+  --ink-soft:#3A3735;
+  --ink-mut:#6E6863;
+  --gold:#B5945A;
+  --gold-deep:#9A7B44;
+  --gold-soft:#CBAE79;
+  --teal:#2E524E;
+  --teal-deep:#213D3A;
+  --teal-bright:#3C6E67;
+  --rust:#93502F;
+  --line:rgba(26,24,22,.14);
+  --line-2:rgba(26,24,22,.08);
+  --line-light:rgba(247,242,230,.18);
+  --r:3px;
+  --shadow:0 30px 80px -30px rgba(26,24,22,.45);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--parchment);
+  color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif;
+  font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  font-feature-settings:"ss01","cv01";
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:"Fraunces","Cormorant Garamond",serif;font-weight:300;letter-spacing:-.01em;line-height:1.04;color:var(--ink)}
+::selection{background:var(--gold);color:var(--parchment-2)}
+
+/* Paper grain overlay — subtle antique texture on everything */
+body::before{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;
+  opacity:.05;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.wrap{max-width:1320px;margin:0 auto;padding:0 40px}
+.eyebrow{font-family:"Inter",sans-serif;font-size:11px;font-weight:500;letter-spacing:3.5px;text-transform:uppercase;color:var(--gold-deep)}
+.roman{font-family:"Cormorant Garamond",serif;font-style:italic;font-weight:400;color:var(--ink-mut)}
+.rule{height:1px;width:52px;background:var(--gold);opacity:.5}
+
+/* ============ TOP BAR ============ */
+.topbar{background:var(--ink);color:var(--parchment-2)}
+.topbar .wrap{display:flex;align-items:center;justify-content:center;gap:14px;height:38px;font-size:10.5px;letter-spacing:2.4px;text-transform:uppercase;font-weight:500;color:rgba(247,242,230,.72)}
+.topbar svg{width:15px;height:15px;opacity:.85}
+
+/* ============ NAV ============ */
+.nav{position:sticky;top:0;z-index:900;background:rgba(239,232,218,.82);backdrop-filter:saturate(140%) blur(14px);-webkit-backdrop-filter:saturate(140%) blur(14px);border-bottom:1px solid var(--line-2);transition:box-shadow .4s var(--ease),background .4s var(--ease)}
+.nav.scrolled{box-shadow:0 12px 40px -22px rgba(26,24,22,.4);background:rgba(239,232,218,.94)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:13px}
+.brand .mk{width:38px;height:38px;flex:0 0 auto}
+.brand .bt{display:flex;flex-direction:column;line-height:1}
+.brand .bt b{font-family:"Fraunces",serif;font-weight:400;font-size:17px;letter-spacing:.12em;color:var(--ink)}
+.brand .bt span{font-size:8.5px;letter-spacing:3.6px;text-transform:uppercase;color:var(--gold-deep);margin-top:4px;font-weight:500}
+.navlinks{display:flex;align-items:center;gap:38px}
+.navlinks a{font-size:12.5px;letter-spacing:.06em;color:var(--ink-soft);font-weight:400;position:relative;padding:6px 0;transition:color .3s var(--ease)}
+.navlinks a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:width .35s var(--ease)}
+.navlinks a:hover{color:var(--ink)}
+.navlinks a:hover::after{width:100%}
+.navact{display:flex;align-items:center;gap:20px}
+.icon-btn{display:flex;align-items:center;justify-content:center;width:38px;height:38px;color:var(--ink-soft);border:1px solid transparent;border-radius:999px;transition:.3s var(--ease);position:relative}
+.icon-btn:hover{border-color:var(--line);color:var(--ink);background:rgba(255,255,255,.4)}
+.icon-btn svg{width:19px;height:19px}
+.cart-dot{position:absolute;top:6px;right:6px;width:15px;height:15px;background:var(--gold);color:var(--parchment-2);border-radius:50%;font-size:9px;font-weight:600;display:flex;align-items:center;justify-content:center;font-family:"Inter",sans-serif}
+.burger{display:none}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:12px;padding:16px 30px;font-family:"Inter",sans-serif;font-size:11.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;border-radius:var(--r);cursor:pointer;border:1px solid transparent;transition:transform .3s var(--ease),background .3s var(--ease),color .3s var(--ease),border-color .3s var(--ease)}
+.btn .ar{transition:transform .35s var(--ease)}
+.btn:hover .ar{transform:translateX(6px)}
+.btn-solid{background:var(--ink);color:var(--parchment-2)}
+.btn-solid:hover{background:var(--teal);transform:translateY(-2px)}
+.btn-gold{background:var(--gold);color:var(--ink)}
+.btn-gold:hover{background:var(--gold-deep);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--ink);transform:translateY(-2px)}
+.btn-light{background:var(--parchment-2);color:var(--ink)}
+.btn-light:hover{background:var(--gold-soft);transform:translateY(-2px)}
+.btn-outline-light{background:transparent;color:var(--parchment-2);border-color:var(--line-light)}
+.btn-outline-light:hover{border-color:var(--parchment-2);transform:translateY(-2px)}
+
+/* ============ HERO ============ */
+.hero{position:relative;background:var(--ink);color:var(--parchment-2);overflow:hidden;padding:88px 0 96px;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2}
+.hero-bg .planisphere{position:absolute;right:-8%;top:50%;transform:translateY(-50%);width:min(72vw,900px);opacity:.5}
+.hero-vign{position:absolute;inset:0;z-index:-1;background:
+  radial-gradient(120% 90% at 18% 40%,rgba(26,24,22,.05) 0%,rgba(26,24,22,.55) 55%,rgba(26,24,22,.9) 100%),
+  linear-gradient(90deg,var(--ink) 8%,rgba(26,24,22,.2) 55%,rgba(26,24,22,.65) 100%)}
+.hero .wrap{position:relative;z-index:2}
+.hero-top{display:flex;align-items:center;gap:16px;margin-bottom:56px}
+.hero-top .rule{background:var(--gold-soft);opacity:.7}
+.hero-top .eyebrow{color:var(--gold-soft)}
+.hero h1{font-size:clamp(46px,7.4vw,112px);font-weight:300;color:var(--parchment-2);letter-spacing:-.025em;max-width:15ch}
+.hero h1 em{font-style:italic;color:var(--gold-soft);font-family:"Fraunces",serif}
+.hero-sub{margin-top:34px;font-size:clamp(16px,1.5vw,19px);line-height:1.7;color:rgba(247,242,230,.72);max-width:52ch;font-weight:300}
+.hero-cta{display:flex;gap:16px;margin-top:44px;flex-wrap:wrap}
+.hero-stats{display:flex;gap:0;margin-top:76px;border-top:1px solid var(--line-light);max-width:760px}
+.hero-stat{flex:1;padding:26px 30px 4px 0}
+.hero-stat b{display:block;font-family:"Fraunces",serif;font-weight:300;font-size:clamp(30px,3.4vw,46px);color:var(--parchment-2);line-height:1}
+.hero-stat b em{font-style:italic;color:var(--gold-soft)}
+.hero-stat span{display:block;margin-top:10px;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(247,242,230,.5);font-weight:500}
+.hero-scroll{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:3;font-size:9.5px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(247,242,230,.45);display:flex;flex-direction:column;align-items:center;gap:10px}
+.hero-scroll .ln{width:1px;height:44px;background:linear-gradient(var(--gold-soft),transparent);animation:scrolln 2.4s var(--ease) infinite}
+@keyframes scrolln{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* compass in hero corner */
+.hero-compass{position:absolute;left:40px;bottom:56px;width:118px;height:118px;z-index:2;opacity:.9}
+.hero-compass .rose-rotor{transform-origin:center;animation:spin 60s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ============ MARQUEE ============ */
+.marquee{background:var(--teal-deep);color:var(--parchment-2);overflow:hidden;border-top:1px solid rgba(203,174,121,.25);border-bottom:1px solid rgba(203,174,121,.25)}
+.marquee-track{display:flex;gap:0;white-space:nowrap;animation:marq 34s linear infinite;padding:20px 0}
+.marquee:hover .marquee-track{animation-play-state:paused}
+.marquee-item{font-family:"Fraunces",serif;font-style:italic;font-weight:300;font-size:22px;color:rgba(247,242,230,.82);padding:0 34px;display:inline-flex;align-items:center;gap:34px}
+.marquee-item::after{content:"✦";font-style:normal;font-size:11px;color:var(--gold-soft)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* ============ SECTION SHELL ============ */
+.sec{padding:130px 0}
+.sec-head{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:center;margin-bottom:14px}
+.sec-head .eyebrow{white-space:nowrap}
+.sec-head .hr{height:1px;background:var(--line)}
+.sec-title{font-size:clamp(38px,5.2vw,72px);font-weight:300;margin-top:26px;max-width:16ch}
+.sec-title em{font-style:italic;color:var(--teal)}
+.sec-lead{margin-top:22px;font-size:18px;line-height:1.7;color:var(--ink-soft);max-width:56ch;font-weight:300}
+
+/* ============ COLLECTION GRID ============ */
+.coll-top{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-bottom:56px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.card{background:var(--parchment-2);border:1px solid var(--line-2);border-radius:var(--r);overflow:hidden;position:relative;transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .5s var(--ease)}
+.card:hover{transform:translateY(-8px);box-shadow:var(--shadow);border-color:var(--line)}
+.card-media{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--parchment-3);display:flex;align-items:center;justify-content:center}
+.card-media svg{width:100%;height:100%;transition:transform .8s var(--ease)}
+.card:hover .card-media svg{transform:scale(1.045)}
+.card-frame{position:absolute;inset:16px;border:1px solid rgba(181,148,90,.35);pointer-events:none;transition:inset .5s var(--ease)}
+.card:hover .card-frame{inset:11px}
+.card-tag{position:absolute;top:16px;left:16px;z-index:3;background:var(--ink);color:var(--parchment-2);font-size:9px;letter-spacing:1.8px;text-transform:uppercase;padding:6px 11px;border-radius:2px;font-weight:500}
+.card-tag.sold{background:var(--rust)}
+.card-fav{position:absolute;top:14px;right:14px;z-index:3;width:34px;height:34px;border-radius:50%;background:rgba(247,242,230,.85);display:flex;align-items:center;justify-content:center;color:var(--ink-soft);opacity:0;transform:translateY(-6px);transition:.4s var(--ease)}
+.card:hover .card-fav{opacity:1;transform:translateY(0)}
+.card-fav:hover{background:var(--gold);color:var(--parchment-2)}
+.card-fav svg{width:16px;height:16px}
+.card-body{padding:26px 26px 28px}
+.card-region{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-deep);font-weight:500}
+.card-title{font-size:24px;font-weight:400;margin-top:12px;line-height:1.12}
+.card-title em{font-style:italic;color:var(--teal)}
+.card-meta{margin-top:12px;font-size:13.5px;color:var(--ink-mut);font-family:"Cormorant Garamond",serif;font-style:italic}
+.card-foot{margin-top:22px;padding-top:20px;border-top:1px solid var(--line-2);display:flex;align-items:center;justify-content:space-between}
+.card-price{font-family:"Fraunces",serif;font-weight:300;font-size:23px;color:var(--ink)}
+.card-price small{font-size:12px;color:var(--ink-mut);font-family:"Inter";letter-spacing:.04em}
+.card-view{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;color:var(--ink-soft);display:inline-flex;align-items:center;gap:8px;font-weight:500;transition:gap .3s var(--ease),color .3s var(--ease)}
+.card-view:hover{gap:13px;color:var(--gold-deep)}
+.coll-more{display:flex;justify-content:center;margin-top:58px}
+
+/* ============ CONTINENTS ============ */
+.cont-sec{background:var(--parchment-3)}
+.cont-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:0;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;background:var(--line)}
+.cont{background:var(--parchment-2);padding:38px 26px 32px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;cursor:pointer;transition:background .45s var(--ease),transform .45s var(--ease)}
+.cont:hover{background:var(--ink)}
+.cont-ico{width:76px;height:76px;color:var(--teal);transition:color .45s var(--ease),transform .55s var(--ease)}
+.cont:hover .cont-ico{color:var(--gold-soft);transform:scale(1.1) rotate(-4deg)}
+.cont b{font-family:"Fraunces",serif;font-weight:400;font-size:18px;color:var(--ink);transition:color .45s var(--ease)}
+.cont:hover b{color:var(--parchment-2)}
+.cont span{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--ink-mut);transition:color .45s var(--ease)}
+.cont:hover span{color:rgba(247,242,230,.55)}
+
+/* ============ PROVENANCE (dark split) ============ */
+.prov{background:var(--ink);color:var(--parchment-2);position:relative;overflow:hidden}
+.prov::before{content:"";position:absolute;right:-6%;top:50%;transform:translateY(-50%);width:640px;height:640px;background:radial-gradient(circle,rgba(181,148,90,.14),transparent 65%);pointer-events:none}
+.prov-grid{display:grid;grid-template-columns:1fr 1fr;gap:88px;align-items:center;position:relative;z-index:2}
+.prov h2{color:var(--parchment-2);font-size:clamp(34px,4.4vw,58px);font-weight:300}
+.prov h2 em{font-style:italic;color:var(--gold-soft)}
+.prov .eyebrow{color:var(--gold-soft)}
+.prov p{color:rgba(247,242,230,.72);font-size:17px;line-height:1.75;font-weight:300;margin-top:22px}
+.prov-list{margin-top:40px;display:flex;flex-direction:column;gap:2px}
+.prov-item{display:grid;grid-template-columns:auto 1fr;gap:22px;padding:24px 0;border-top:1px solid var(--line-light);align-items:start}
+.prov-item:last-child{border-bottom:1px solid var(--line-light)}
+.prov-num{font-family:"Cormorant Garamond",serif;font-style:italic;font-size:16px;color:var(--gold-soft);padding-top:3px}
+.prov-item b{font-family:"Fraunces",serif;font-weight:400;font-size:19px;color:var(--parchment-2);display:block}
+.prov-item p{margin-top:7px;font-size:14.5px;color:rgba(247,242,230,.6)}
+.prov-seal{display:flex;justify-content:center;align-items:center}
+.prov-seal svg{width:min(80%,420px);height:auto}
+.prov-seal .rose-rotor{transform-origin:center;animation:spin 90s linear infinite}
+
+/* ============ STORY ============ */
+.story-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:80px;align-items:center}
+.story-visual{position:relative}
+.story-visual .frame-outer{border:1px solid var(--line);padding:18px;background:var(--parchment-2);border-radius:var(--r);box-shadow:var(--shadow)}
+.story-visual .frame-inner{border:1px solid var(--gold);border-width:1px;padding:0;background:var(--parchment-3);overflow:hidden;position:relative}
+.story-visual svg{width:100%;display:block}
+.story-cap{position:absolute;bottom:-18px;right:24px;background:var(--ink);color:var(--parchment-2);padding:14px 22px;border-radius:var(--r);font-family:"Cormorant Garamond",serif;font-style:italic;font-size:15px}
+.story-cap em{color:var(--gold-soft);font-weight:500;font-style:normal;letter-spacing:1px;font-family:"Inter";font-size:11px;text-transform:uppercase}
+.story-text h2{font-size:clamp(34px,4.4vw,58px);font-weight:300}
+.story-text h2 em{font-style:italic;color:var(--teal)}
+.story-text p{margin-top:22px;font-size:17px;line-height:1.8;color:var(--ink-soft);font-weight:300}
+.story-text .signature{margin-top:34px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:30px;color:var(--teal);line-height:1}
+.story-text .sig-role{margin-top:8px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink-mut);font-weight:500}
+
+/* ============ QUOTE ============ */
+.quote{background:var(--teal-deep);color:var(--parchment-2);text-align:center}
+.quote .mark{font-family:"Fraunces",serif;font-size:120px;line-height:.4;color:var(--gold-soft);opacity:.5;display:block;margin-bottom:10px}
+.quote blockquote{font-family:"Fraunces",serif;font-weight:300;font-size:clamp(26px,3.5vw,46px);line-height:1.28;max-width:20ch;margin:0 auto;color:var(--parchment-2)}
+.quote blockquote em{font-style:italic;color:var(--gold-soft)}
+.quote cite{display:block;margin-top:34px;font-style:normal;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(247,242,230,.55);font-weight:500}
+
+/* ============ JOURNAL ============ */
+.jrnl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:34px}
+.article{cursor:pointer}
+.article-media{aspect-ratio:16/11;overflow:hidden;border-radius:var(--r);background:var(--parchment-3);position:relative;border:1px solid var(--line-2)}
+.article-media svg{width:100%;height:100%;transition:transform .8s var(--ease)}
+.article:hover .article-media svg{transform:scale(1.06)}
+.article-cat{margin-top:22px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold-deep);font-weight:500}
+.article h3{font-size:24px;font-weight:400;margin-top:12px;line-height:1.18;transition:color .3s var(--ease)}
+.article:hover h3{color:var(--teal)}
+.article .date{margin-top:14px;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:14px;color:var(--ink-mut)}
+
+/* ============ NEWSLETTER ============ */
+.news{background:var(--ink);color:var(--parchment-2);position:relative;overflow:hidden}
+.news .planisphere{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:900px;opacity:.06;pointer-events:none}
+.news-inner{text-align:center;max-width:640px;margin:0 auto;position:relative;z-index:2}
+.news h2{color:var(--parchment-2);font-size:clamp(32px,4.2vw,54px);font-weight:300}
+.news h2 em{font-style:italic;color:var(--gold-soft)}
+.news p{color:rgba(247,242,230,.68);margin-top:20px;font-size:17px;font-weight:300}
+.news-form{display:flex;gap:12px;margin-top:36px;max-width:480px;margin-left:auto;margin-right:auto}
+.news-form input{flex:1;background:transparent;border:1px solid var(--line-light);border-radius:var(--r);padding:16px 20px;color:var(--parchment-2);font-family:"Inter";font-size:14px;transition:border-color .3s var(--ease)}
+.news-form input::placeholder{color:rgba(247,242,230,.4)}
+.news-form input:focus{outline:none;border-color:var(--gold-soft)}
+.news-fine{margin-top:20px;font-size:12px;color:rgba(247,242,230,.4);font-family:"Cormorant Garamond",serif;font-style:italic}
+
+/* ============ FOOTER ============ */
+.foot{background:var(--parchment-3);padding:88px 0 40px;border-top:1px solid var(--line)}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px;padding-bottom:64px;border-bottom:1px solid var(--line)}
+.foot-brand .brand{margin-bottom:22px}
+.foot-brand p{font-size:14.5px;color:var(--ink-mut);max-width:34ch;line-height:1.7}
+.foot-social{display:flex;gap:12px;margin-top:26px}
+.foot-social a{width:38px;height:38px;border:1px solid var(--line);border-radius:999px;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);transition:.3s var(--ease)}
+.foot-social a:hover{background:var(--ink);color:var(--parchment-2);border-color:var(--ink)}
+.foot-social svg{width:16px;height:16px}
+.foot-col h5{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--ink);font-weight:600;font-family:"Inter";margin-bottom:22px}
+.foot-col a{display:block;font-size:14px;color:var(--ink-mut);padding:7px 0;transition:color .3s var(--ease),padding-left .3s var(--ease)}
+.foot-col a:hover{color:var(--ink);padding-left:5px}
+.foot-bot{display:flex;align-items:center;justify-content:space-between;padding-top:32px;flex-wrap:wrap;gap:16px}
+.foot-bot p{font-size:12.5px;color:var(--ink-mut)}
+.foot-bot .fl{display:flex;gap:26px}
+.foot-bot .fl a{font-size:12.5px;color:var(--ink-mut)}
+.foot-bot .fl a:hover{color:var(--ink)}
+
+/* ============ REVEAL ============ */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.08s}.rv-d2{transition-delay:.16s}.rv-d3{transition-delay:.24s}.rv-d4{transition-delay:.32s}.rv-d5{transition-delay:.4s}
+@media (prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}*{animation:none!important}}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1080px){
+  .grid,.jrnl-grid{grid-template-columns:repeat(2,1fr)}
+  .cont-grid{grid-template-columns:repeat(3,1fr)}
+  .prov-grid,.story-grid{grid-template-columns:1fr;gap:56px}
+  .prov-seal{order:-1}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:720px){
+  .wrap{padding:0 22px}
+  .navlinks,.hero-compass,.hero-scroll{display:none}
+  .burger{display:flex}
+  .sec{padding:88px 0}
+  .grid,.jrnl-grid,.cont-grid{grid-template-columns:1fr}
+  .hero{padding:60px 0 72px}
+  .hero-stats{flex-wrap:wrap;gap:20px 0}
+  .hero-stat{flex:1 0 45%}
+  .hero-bg .planisphere{opacity:.28;right:-30%}
+  .news-form{flex-direction:column}
+  .foot-grid{grid-template-columns:1fr}
+  .foot-bot{flex-direction:column;align-items:flex-start}
+}
+
+/* mobile menu */
+.mmenu{position:fixed;inset:0;z-index:1000;background:var(--ink);color:var(--parchment-2);display:flex;flex-direction:column;padding:30px 26px;transform:translateY(-100%);transition:transform .5s var(--ease);visibility:hidden}
+.mmenu.open{transform:none;visibility:visible}
+.mmenu-top{display:flex;align-items:center;justify-content:space-between}
+.mmenu-top .close{color:var(--parchment-2)}
+.mmenu nav{margin-top:auto;margin-bottom:auto;display:flex;flex-direction:column;gap:6px}
+.mmenu nav a{font-family:"Fraunces",serif;font-size:34px;font-weight:300;color:var(--parchment-2);padding:8px 0;border-bottom:1px solid var(--line-light)}
+.mmenu nav a em{font-style:italic;color:var(--gold-soft)}
+</style>
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="wrap">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l7 3v6c0 4.5-3 8-7 11-4-3-7-6.5-7-11V5l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
+    <span>Certificate of Authenticity with every map · Worldwide insured shipping · Est. 2023</span>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a href="#top" class="brand" aria-label="Antique Maps Gallery home">
+      <span class="mk">
+        <svg viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="18.5" stroke="#B5945A" stroke-width="1"/>
+          <circle cx="20" cy="20" r="14" stroke="#1A1816" stroke-width=".6" opacity=".4"/>
+          <path d="M20 4v32M4 20h32" stroke="#1A1816" stroke-width=".5" opacity=".35"/>
+          <path d="M20 6l3 11 11 3-11 3-3 11-3-11-11-3 11-3z" fill="#1A1816"/>
+          <circle cx="20" cy="20" r="2" fill="#B5945A"/>
+        </svg>
+      </span>
+      <span class="bt"><b>ANTIQUE MAPS</b><span>Gallery · Rare Cartography</span></span>
+    </a>
+    <nav class="navlinks">
+      <a href="#collection">Collection</a>
+      <a href="#continents">By Region</a>
+      <a href="#provenance">Provenance</a>
+      <a href="#story">The Gallery</a>
+      <a href="#journal">Journal</a>
+    </nav>
+    <div class="navact">
+      <button class="icon-btn" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      </button>
+      <button class="icon-btn" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6h15l-1.5 9h-12L6 6zM6 6L5 2H2"/><circle cx="9" cy="20" r="1.4"/><circle cx="18" cy="20" r="1.4"/></svg>
+        <span class="cart-dot">2</span>
+      </button>
+      <button class="icon-btn burger" id="burger" aria-label="Menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18M3 12h18M3 17h18"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div class="mmenu" id="mmenu">
+  <div class="mmenu-top">
+    <span class="eyebrow" style="color:var(--gold-soft)">Antique Maps Gallery</span>
+    <button class="icon-btn close" id="mclose" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <nav>
+    <a href="#collection" data-mclose>The <em>Collection</em></a>
+    <a href="#continents" data-mclose>By <em>Region</em></a>
+    <a href="#provenance" data-mclose><em>Provenance</em></a>
+    <a href="#story" data-mclose>The <em>Gallery</em></a>
+    <a href="#journal" data-mclose><em>Journal</em></a>
+  </nav>
+</div>
+
+<span id="top"></span>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-bg">
+    <!-- double-hemisphere planisphere engraving -->
+    <svg class="planisphere" viewBox="0 0 520 520" fill="none" aria-hidden="true">
+      <defs>
+        <radialGradient id="ocean" cx="50%" cy="45%" r="60%">
+          <stop offset="0%" stop-color="#3C6E67" stop-opacity=".25"/>
+          <stop offset="100%" stop-color="#213D3A" stop-opacity=".05"/>
+        </radialGradient>
+      </defs>
+      <g stroke="#CBAE79" stroke-width=".7" opacity=".9">
+        <circle cx="260" cy="260" r="210" fill="url(#ocean)"/>
+        <circle cx="260" cy="260" r="210"/>
+        <circle cx="260" cy="260" r="196" stroke-width=".4" opacity=".6"/>
+        <!-- graticule -->
+        <ellipse cx="260" cy="260" rx="210" ry="70" opacity=".4"/>
+        <ellipse cx="260" cy="260" rx="210" ry="130" opacity=".4"/>
+        <ellipse cx="260" cy="260" rx="140" ry="210" opacity=".4"/>
+        <ellipse cx="260" cy="260" rx="70" ry="210" opacity=".4"/>
+        <line x1="50" y1="260" x2="470" y2="260"/>
+        <line x1="260" y1="50" x2="260" y2="470"/>
+      </g>
+      <!-- stylised continents -->
+      <g fill="#CBAE79" opacity=".5">
+        <path d="M175 150c25-14 60-8 72 10 8 12-2 26-16 30-10 3-8 16-20 20-16 5-40-2-48-18-9-18-8-32 12-42z"/>
+        <path d="M300 200c22-6 44 6 50 24 5 15-6 30-2 44 4 14-6 30-24 30-20 0-30-20-30-40 0-16-14-22-10-40 3-14 6-16 16-18z"/>
+        <path d="M150 300c18-4 34 8 34 24 0 14 10 22 4 36-6 14-26 20-40 10-16-12-18-40-10-54 3-6 6-14 12-16z"/>
+        <path d="M330 320c16-2 26 12 22 28-3 12-16 14-18 26-3 14-22 16-28 4-8-16 0-38 10-50 4-4 6-6 14-8z"/>
+      </g>
+      <!-- rhumb lines -->
+      <g stroke="#CBAE79" stroke-width=".35" opacity=".45">
+        <g id="rl">
+          <line x1="260" y1="260" x2="470" y2="260"/><line x1="260" y1="260" x2="408" y2="112"/>
+          <line x1="260" y1="260" x2="260" y2="50"/><line x1="260" y1="260" x2="112" y2="112"/>
+        </g>
+        <use href="#rl" transform="rotate(45 260 260)"/>
+        <use href="#rl" transform="rotate(22.5 260 260)"/>
+        <use href="#rl" transform="rotate(67.5 260 260)"/>
+      </g>
+      <!-- compass rose center -->
+      <g transform="translate(260 260)">
+        <circle r="26" fill="none" stroke="#CBAE79" stroke-width=".6"/>
+        <path d="M0 -46L6 -6 46 0 6 6 0 46 -6 6 -46 0 -6 -6z" fill="#CBAE79" opacity=".7"/>
+        <path d="M0 -30L4 0 0 30 -4 0z" fill="#B5945A"/>
+        <circle r="3.5" fill="#B5945A"/>
+      </g>
+    </svg>
+  </div>
+  <div class="hero-vign"></div>
+
+  <div class="wrap">
+    <div class="hero-top rv in">
+      <span class="rule"></span>
+      <span class="eyebrow">15<sup>th</sup>—19<sup>th</sup> Century · Original Antiques</span>
+    </div>
+    <h1 class="rv in">Cartography from the<br><em>Age of Discovery</em></h1>
+    <p class="hero-sub rv in rv-d1">Authentic maps, sea charts and atlases engraved by the master cartographers of Europe — hand-selected, meticulously described, and delivered with a Certificate of Authenticity. A world of history, framed.</p>
+    <div class="hero-cta rv in rv-d2">
+      <a href="#collection" class="btn btn-gold">Explore the collection <span class="ar">→</span></a>
+      <a href="#provenance" class="btn btn-outline-light">On authenticity</a>
+    </div>
+    <div class="hero-stats rv in rv-d3">
+      <div class="hero-stat"><b data-count="420">0</b><span>Maps in stock</span></div>
+      <div class="hero-stat"><b><em>40</em></b><span>Years of dealer heritage</span></div>
+      <div class="hero-stat"><b data-count="100">0</b><span>% Certified authentic</span></div>
+      <div class="hero-stat"><b><em>7</em></b><span>Continents charted</span></div>
+    </div>
+  </div>
+
+  <!-- corner compass -->
+  <svg class="hero-compass" viewBox="0 0 120 120" fill="none" aria-hidden="true">
+    <circle cx="60" cy="60" r="58" stroke="#CBAE79" stroke-width=".8" opacity=".5"/>
+    <circle cx="60" cy="60" r="48" stroke="#CBAE79" stroke-width=".5" opacity=".3"/>
+    <g class="rose-rotor">
+      <path d="M60 8L67 53 112 60 67 67 60 112 53 67 8 60 53 53z" fill="none" stroke="#CBAE79" stroke-width=".8" opacity=".6"/>
+      <path d="M60 20L65 55 60 60 55 55z" fill="#CBAE79"/>
+      <path d="M60 100L55 65 60 60 65 65z" fill="#B5945A" opacity=".7"/>
+      <path d="M20 60L55 55 60 60 55 65z" fill="#CBAE79" opacity=".8"/>
+      <path d="M100 60L65 65 60 60 65 55z" fill="#CBAE79" opacity=".8"/>
+    </g>
+    <text x="60" y="17" fill="#CBAE79" font-size="7" text-anchor="middle" font-family="Fraunces,serif" opacity=".8">N</text>
+    <circle cx="60" cy="60" r="3" fill="#B5945A"/>
+  </svg>
+
+  <div class="hero-scroll"><span>Scroll</span><span class="ln"></span></div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span class="marquee-item">Mercator</span><span class="marquee-item">Ortelius</span><span class="marquee-item">Blaeu</span><span class="marquee-item">Hondius</span><span class="marquee-item">Speed</span><span class="marquee-item">Janssonius</span><span class="marquee-item">De Wit</span><span class="marquee-item">Coronelli</span>
+    <span class="marquee-item">Mercator</span><span class="marquee-item">Ortelius</span><span class="marquee-item">Blaeu</span><span class="marquee-item">Hondius</span><span class="marquee-item">Speed</span><span class="marquee-item">Janssonius</span><span class="marquee-item">De Wit</span><span class="marquee-item">Coronelli</span>
+  </div>
+</div>
+
+<!-- ============ COLLECTION ============ -->
+<section class="sec" id="collection">
+  <div class="wrap">
+    <div class="coll-top">
+      <div>
+        <div class="sec-head rv"><span class="eyebrow">The Collection</span><span class="hr"></span></div>
+        <h2 class="sec-title rv rv-d1">Recently acquired <em>masterworks</em></h2>
+      </div>
+      <p class="sec-lead rv rv-d2" style="margin-top:0;max-width:38ch">Each map is an original — engraved, printed and often hand-coloured centuries ago. Browse a rotating selection of our finest pieces.</p>
+    </div>
+
+    <div class="grid" id="collGrid"></div>
+
+    <div class="coll-more rv"><a href="#" class="btn btn-ghost">View all 420 maps <span class="ar">→</span></a></div>
+  </div>
+</section>
+
+<!-- ============ CONTINENTS ============ -->
+<section class="sec cont-sec" id="continents">
+  <div class="wrap">
+    <div class="sec-head rv"><span class="eyebrow">Chart your course</span><span class="hr"></span></div>
+    <h2 class="sec-title rv rv-d1">Browse the world, <em>region by region</em></h2>
+    <p class="sec-lead rv rv-d2">From the Low Countries' golden-age ateliers to the great terrestrial globes — explore antique maps organised by the lands they depict.</p>
+
+    <div class="cont-grid rv rv-d2" id="contGrid" style="margin-top:56px"></div>
+  </div>
+</section>
+
+<!-- ============ PROVENANCE ============ -->
+<section class="sec prov" id="provenance">
+  <div class="wrap">
+    <div class="prov-grid">
+      <div>
+        <div class="sec-head rv" style="grid-template-columns:auto 1fr"><span class="eyebrow">Provenance & Authenticity</span><span class="hr" style="background:var(--line-light)"></span></div>
+        <h2 class="rv rv-d1" style="margin-top:24px">Every map, <em>guaranteed genuine</em></h2>
+        <p class="rv rv-d2">We deal exclusively in original antiquarian material. No reproductions, no facsimiles. Behind each acquisition stands four decades of family expertise in the trade of rare books and maps.</p>
+        <div class="prov-list rv rv-d2">
+          <div class="prov-item"><span class="prov-num">i.</span><div><b>Certificate of Authenticity</b><p>Signed documentation stating the cartographer, date, place of publication and printing technique — issued with every purchase.</p></div></div>
+          <div class="prov-item"><span class="prov-num">ii.</span><div><b>Scholarly description</b><p>A detailed catalogue note on history, condition and cartographic significance, prepared by our specialists.</p></div></div>
+          <div class="prov-item"><span class="prov-num">iii.</span><div><b>Insured worldwide shipping</b><p>Museum-grade packing, fully insured transit, and a 14-day return guarantee on every order.</p></div></div>
+        </div>
+      </div>
+      <div class="prov-seal rv rv-d2">
+        <!-- wax seal / certificate medallion -->
+        <svg viewBox="0 0 380 380" fill="none" aria-hidden="true">
+          <circle cx="190" cy="190" r="180" stroke="#CBAE79" stroke-width="1" opacity=".4"/>
+          <circle cx="190" cy="190" r="150" stroke="#CBAE79" stroke-width=".6" opacity=".7"/>
+          <circle cx="190" cy="190" r="118" stroke="#CBAE79" stroke-width=".4" opacity=".4"/>
+          <!-- circular text ring -->
+          <defs>
+            <path id="ring" d="M190 60a130 130 0 1 1 -.1 0" />
+          </defs>
+          <text fill="#CBAE79" font-size="13" font-family="Fraunces,serif" letter-spacing="4" opacity=".85">
+            <textPath href="#ring" startOffset="0">· CERTIFIED ORIGINAL · ANTIQUE MAPS GALLERY · GUARANTEED AUTHENTIC ·</textPath>
+          </text>
+          <!-- rotating rose -->
+          <g class="rose-rotor" transform="translate(190 190)">
+            <path d="M0 -100L14 -14 100 0 14 14 0 100 -14 14 -100 0 -14 -14z" fill="none" stroke="#CBAE79" stroke-width=".8" opacity=".6"/>
+            <path d="M0 -78L10 0 0 78 -10 0z" fill="#CBAE79" opacity=".55"/>
+            <path d="M-78 0L0 -10 78 0 0 10z" fill="#B5945A" opacity=".5"/>
+          </g>
+          <g transform="translate(190 190)">
+            <circle r="52" fill="#213D3A"/>
+            <circle r="52" stroke="#CBAE79" stroke-width="1"/>
+            <path d="M0 -34l8 26 26 0-21 15 8 26-21-16-21 16 8-26-21-15 26 0z" fill="#CBAE79"/>
+          </g>
+          <text x="190" y="330" fill="#CBAE79" font-size="11" font-family="Inter" letter-spacing="3" text-anchor="middle" opacity=".7">EST · MMXXIII</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="sec" id="story">
+  <div class="wrap">
+    <div class="story-grid">
+      <div class="story-visual rv">
+        <div class="frame-outer">
+          <div class="frame-inner">
+            <!-- antique regional map engraving -->
+            <svg viewBox="0 0 520 440" fill="none" aria-hidden="true">
+              <rect width="520" height="440" fill="#E7DECB"/>
+              <g stroke="#93502F" stroke-width=".5" opacity=".55">
+                <rect x="18" y="18" width="484" height="404" fill="none" stroke-width="2"/>
+                <rect x="26" y="26" width="468" height="388" fill="none" stroke-width=".6"/>
+              </g>
+              <!-- sea -->
+              <g stroke="#2E524E" stroke-width=".4" opacity=".3">
+                <path d="M40 120q40 8 80 0t80 0 80 0 80 0 80 0"/>
+                <path d="M40 150q40 8 80 0t80 0 80 0 80 0 80 0"/>
+                <path d="M40 340q40 8 80 0t80 0 80 0 80 0 80 0"/>
+                <path d="M40 370q40 8 80 0t80 0 80 0 80 0 80 0"/>
+              </g>
+              <!-- landmass -->
+              <path d="M120 90c60-16 130-10 175 20 30 20 22 55 55 70 40 18 90 10 110 45 16 28-6 60-40 66-50 9-70-30-120-28-46 2-60 40-108 30-40-8-52-48-90-58-30-8-44-40-30-66 10-18 22-24 48-30 12-3 30-15 42-25 20-16 4-40 8-52 3-9 8-12 32-8z" fill="#D8CBAF" stroke="#93502F" stroke-width=".8" opacity=".85"/>
+              <!-- rivers -->
+              <g stroke="#2E524E" stroke-width=".7" opacity=".4" fill="none">
+                <path d="M200 130q10 40 30 60t10 60"/>
+                <path d="M300 160q-6 44 20 70t0 60"/>
+              </g>
+              <!-- towns -->
+              <g fill="#93502F">
+                <circle cx="205" cy="190" r="2.4"/><circle cx="270" cy="150" r="2.4"/><circle cx="315" cy="230" r="2.4"/><circle cx="245" cy="260" r="2.4"/><circle cx="360" cy="180" r="2.4"/>
+              </g>
+              <!-- compass -->
+              <g transform="translate(420 320)" opacity=".8">
+                <circle r="30" fill="none" stroke="#93502F" stroke-width=".6"/>
+                <path d="M0 -26L4 -4 26 0 4 4 0 26 -4 4 -26 0 -4 -4z" fill="#93502F"/>
+                <path d="M0 -18L3 0 0 18 -3 0z" fill="#2E524E"/>
+              </g>
+              <!-- cartouche -->
+              <g transform="translate(78 330)">
+                <rect x="-6" y="-24" width="150" height="60" rx="4" fill="#EFE8DA" stroke="#93502F" stroke-width=".6" opacity=".92"/>
+                <text x="69" y="-4" fill="#93502F" font-size="13" font-family="Fraunces,serif" font-style="italic" text-anchor="middle">Nova Totius</text>
+                <text x="69" y="14" fill="#93502F" font-size="9" font-family="Fraunces,serif" letter-spacing="1.5" text-anchor="middle">TERRARUM · 1662</text>
+              </g>
+              <!-- sea monster flourish -->
+              <path d="M420 130q10-10 22-4t6 20q10-6 16 2" stroke="#93502F" stroke-width=".7" fill="none" opacity=".5"/>
+            </svg>
+          </div>
+        </div>
+        <span class="story-cap"><em>Featured</em> · Nova Totius Terrarum, 1662</span>
+      </div>
+
+      <div class="story-text rv rv-d1">
+        <div class="sec-head" style="grid-template-columns:auto 1fr"><span class="eyebrow">The Gallery</span><span class="hr"></span></div>
+        <h2 style="margin-top:24px">A trade passed down <em>through generations</em></h2>
+        <p>Antique Maps Gallery was founded on a simple inheritance: a lifelong love of the printed world. Raised among the shelves of two antiquarian dealers with more than forty years in rare books and maps, we know these objects intimately — where they were made, how they were printed, and why they still matter.</p>
+        <p>Today the gallery brings that expertise online, pairing serious collectors and first-time buyers alike with authentic pieces from the 15th to the 19th century. Every map we sell is one we would be proud to hang on our own wall.</p>
+        <div class="signature">Lisette Hoepelman</div>
+        <div class="sig-role">Founder & Curator</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<section class="sec quote">
+  <div class="wrap">
+    <span class="mark rv">“</span>
+    <blockquote class="rv rv-d1">A map is the <em>oldest kind of story</em> — a whole world, held in the hand.</blockquote>
+    <cite class="rv rv-d2">— On the art of cartography</cite>
+  </div>
+</section>
+
+<!-- ============ JOURNAL ============ -->
+<section class="sec" id="journal">
+  <div class="wrap">
+    <div class="coll-top">
+      <div>
+        <div class="sec-head rv"><span class="eyebrow">The Journal</span><span class="hr"></span></div>
+        <h2 class="sec-title rv rv-d1">Notes from <em>the map room</em></h2>
+      </div>
+      <a href="#" class="btn btn-ghost rv rv-d2">All articles <span class="ar">→</span></a>
+    </div>
+    <div class="jrnl-grid" id="jrnlGrid" style="margin-top:56px"></div>
+  </div>
+</section>
+
+<!-- ============ NEWSLETTER ============ -->
+<section class="sec news">
+  <svg class="planisphere" viewBox="0 0 520 520" fill="none" aria-hidden="true">
+    <g stroke="#CBAE79" stroke-width="1"><circle cx="260" cy="260" r="210"/><ellipse cx="260" cy="260" rx="210" ry="90"/><ellipse cx="260" cy="260" rx="90" ry="210"/><line x1="50" y1="260" x2="470" y2="260"/><line x1="260" y1="50" x2="260" y2="470"/></g>
+  </svg>
+  <div class="wrap">
+    <div class="news-inner">
+      <div class="eyebrow rv" style="color:var(--gold-soft)">The Cartographer's Letter</div>
+      <h2 class="rv rv-d1" style="margin-top:18px">New discoveries, <em>first</em></h2>
+      <p class="rv rv-d2">Be the first to see newly acquired maps, private-sale previews and the occasional story from the archive. No noise — just the good stuff.</p>
+      <form class="news-form rv rv-d2" onsubmit="return false">
+        <input type="email" placeholder="you@example.com" aria-label="Email address" required>
+        <button class="btn btn-gold" type="submit">Subscribe <span class="ar">→</span></button>
+      </form>
+      <p class="news-fine rv rv-d2">One letter a month. Unsubscribe anytime.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="#top" class="brand">
+          <span class="mk">
+            <svg viewBox="0 0 40 40" fill="none">
+              <circle cx="20" cy="20" r="18.5" stroke="#B5945A" stroke-width="1"/>
+              <path d="M20 6l3 11 11 3-11 3-3 11-3-11-11-3 11-3z" fill="#1A1816"/>
+              <circle cx="20" cy="20" r="2" fill="#B5945A"/>
+            </svg>
+          </span>
+          <span class="bt"><b>ANTIQUE MAPS</b><span>Gallery · Rare Cartography</span></span>
+        </a>
+        <p>Original antiquarian maps, charts and atlases from the 15th to the 19th century — curated, certified, and shipped worldwide.</p>
+        <div class="foot-social">
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+          <a href="#" aria-label="Pinterest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3a9 9 0 0 0-3 17.5c-.1-.8-.2-2 0-2.8l1-4.2s-.3-.5-.3-1.3c0-1.2.7-2.1 1.6-2.1.7 0 1.1.6 1.1 1.3 0 .8-.5 2-.8 3.1-.2.9.5 1.6 1.4 1.6 1.6 0 2.8-1.7 2.8-4.1 0-2.2-1.5-3.7-3.7-3.7A3.9 3.9 0 0 0 9 12.6c0 .8.3 1.3.5 1.6l-.3 1.2c-.1.3-.3.4-.6.2-1-.5-1.6-2-1.6-3.2 0-2.6 1.9-5 5.5-5 2.9 0 5.1 2 5.1 4.8 0 2.9-1.8 5.2-4.3 5.2-.8 0-1.6-.4-1.9-1L9 20.5A9 9 0 1 0 12 3z"/></svg></a>
+          <a href="#" aria-label="Email"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Collection</h5>
+        <a href="#collection">All maps</a><a href="#continents">By region</a><a href="#">By century</a><a href="#">Sea charts</a><a href="#">Atlases & globes</a><a href="#">Recently sold</a>
+      </div>
+      <div class="foot-col">
+        <h5>The Gallery</h5>
+        <a href="#story">Our story</a><a href="#provenance">Authenticity</a><a href="#journal">Journal</a><a href="#">Framing & care</a><a href="#">Sell your map</a><a href="#">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Assurance</h5>
+        <a href="#">Certificate of Authenticity</a><a href="#">Insured shipping</a><a href="#">14-day returns</a><a href="#">Secure payment</a><a href="#">Terms & privacy</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <p>© 2023—2026 Antique Maps Gallery. All rights reserved. A demonstration storefront.</p>
+      <div class="fl"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Cookies</a></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============ DATA — collection, continents, journal ============ */
+const MAPS = [
+  {region:"World · Double Hemisphere",title:"Nova Totius Terrarum Orbis",maker:"J. Blaeu · Amsterdam, 1662",price:"€ 4,850",tag:"New",monster:true},
+  {region:"Europe",title:"Europa Recens Descripta",maker:"W. Hondius · 1631, hand-coloured",price:"€ 2,300",tag:"New"},
+  {region:"The Americas",title:"Americae Nova Tabula",maker:"Ortelius · Antwerp, 1595",price:"€ 6,200",tag:"Rare"},
+  {region:"Asia · Sea Chart",title:"India Orientalis",maker:"Jansson · 1652, portolan",price:"€ 3,100",tag:null},
+  {region:"Africa",title:"Africae Descriptio",maker:"Mercator / Hondius · 1619",price:"€ 2,750",tag:null},
+  {region:"Celestial",title:"Planisphaerium Coeleste",maker:"F. de Wit · 1670",price:"€ 5,400",tag:"Sold",sold:true},
+];
+
+const CONTINENTS = [
+  {n:"Europe",c:"128 maps"},{n:"The Americas",c:"96 maps"},{n:"Asia",c:"74 maps"},
+  {n:"Africa",c:"52 maps"},{n:"World",c:"48 maps"},{n:"Celestial",c:"22 maps"},
+];
+
+const ARTICLES = [
+  {cat:"Cartographers",title:"Blaeu vs. Janssonius — the great atlas rivalry",date:"June 2026"},
+  {cat:"Collecting",title:"How to read the condition of a 400-year-old map",date:"May 2026"},
+  {cat:"From the Archive",title:"Sea monsters, and why cartographers drew them",date:"April 2026"},
+];
+
+/* ---- SVG generators (deterministic, seedable) ---- */
+function rnd(seed){let s=seed;return()=>{s=(s*9301+49297)%233280;return s/233280}}
+
+function mapSVG(seed,monster){
+  const r=rnd(seed*7+3);
+  const towns=Array.from({length:6},()=>`<circle cx="${60+r()*300}" cy="${70+r()*260}" r="2" fill="#93502F"/>`).join("");
+  const waves=[110,140,300,330].map(y=>`<path d="M30 ${y}q30 6 60 0t60 0 60 0 60 0 60 0 60 0" fill="none" stroke="#2E524E" stroke-width=".4" opacity=".3"/>`).join("");
+  // valid static landmass, varied per card by a seeded transform
+  const land="M120 96c58-16 128-10 172 18 30 20 22 54 54 68 40 18 88 10 108 44 15 27-6 58-40 64-48 9-68-28-116-26-44 2-58 38-104 28-38-8-50-46-86-56-30-8-42-38-28-64 10-18 22-24 46-30 12-3 30-15 42-24 20-16 4-38 8-50 3-8 8-11 30-4z";
+  const rot=(r()*10-5).toFixed(1), tx=(r()*24-12).toFixed(0), ty=(r()*16-8).toFixed(0), sc=(0.92+r()*0.14).toFixed(2);
+  return `<svg viewBox="0 0 420 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="420" height="400" fill="#E7DECB"/>
+    <rect x="14" y="14" width="392" height="372" fill="none" stroke="#93502F" stroke-width="1.6" opacity=".5"/>
+    <rect x="20" y="20" width="380" height="360" fill="none" stroke="#93502F" stroke-width=".5" opacity=".4"/>
+    ${waves}
+    <g transform="translate(${tx} ${ty}) rotate(${rot} 210 200) scale(${sc})" style="transform-origin:210px 200px">
+      <path d="${land}" fill="#D8CBAF" stroke="#93502F" stroke-width=".8" opacity=".85"/>
+    </g>
+    <path d="M180 120q8 40 26 58t8 56" fill="none" stroke="#2E524E" stroke-width=".6" opacity=".4"/>
+    ${towns}
+    <g transform="translate(345 315)" opacity=".8"><circle r="26" fill="none" stroke="#93502F" stroke-width=".6"/><path d="M0 -22L4 -4 22 0 4 4 0 22 -4 4 -22 0 -4 -4z" fill="#93502F"/><path d="M0 -15L2.5 0 0 15 -2.5 0z" fill="#2E524E"/></g>
+    ${monster?'<path d="M340 110q10-10 22-4t5 20q10-6 16 2q-4 6-12 5" fill="none" stroke="#93502F" stroke-width=".7" opacity=".5"/>':''}
+    <g transform="translate(60 320)"><rect x="-4" y="-20" width="120" height="46" rx="3" fill="#EFE8DA" stroke="#93502F" stroke-width=".5" opacity=".9"/><line x1="6" y1="-6" x2="102" y2="-6" stroke="#93502F" stroke-width=".4" opacity=".5"/><line x1="14" y1="6" x2="94" y2="6" stroke="#93502F" stroke-width=".4" opacity=".4"/><line x1="24" y1="16" x2="84" y2="16" stroke="#93502F" stroke-width=".4" opacity=".3"/></g>
+  </svg>`;
+}
+
+function contIcon(name){
+  const shapes={
+    "Europe":'M30 20c14-6 30 0 34 12 3 10-8 14-6 24 2 12-14 18-24 12-12-8-8-22-16-30-6-6 0-14 12-18z',
+    "The Americas":'M28 8c10 2 12 14 8 22-3 6 4 10 2 18-2 10-14 24-20 20-8-6 0-18-2-28-2-8-10-12-8-22 2-8 12-12 20-10z',
+    "Asia":'M18 22c16-12 44-14 54 0 6 10-6 16-4 26 2 12-18 14-28 8-8-4-6-14-16-16-12-2-16-12-6-18z',
+    "Africa":'M32 12c12 0 20 10 18 22-2 8 4 12 0 22-4 12-20 16-26 8-6-8 0-16-4-26-4-10-6-14 0-22 3-4 6-6 12-6z',
+    "World":'M32 6a26 26 0 100 52 26 26 0 000-52zM10 32h44M32 8c-10 8-10 40 0 48M32 8c10 8 10 40 0 48',
+    "Celestial":'M32 8l5 16 16 5-16 5-5 16-5-16-16-5 16-5zM16 44l2 6 6 2-6 2-2 6-2-6-6-2 6-2z'
+  };
+  const p=shapes[name]||shapes["World"];
+  const fill=name==="World"||name==="Celestial"?'none':'currentColor';
+  const extra=name==="World"?'stroke="currentColor" stroke-width="1.4" fill="none"':(name==="Celestial"?'fill="currentColor"':'fill="currentColor" stroke="currentColor" stroke-width=".5"');
+  return `<svg class="cont-ico" viewBox="0 0 64 64" ${name==='World'?'':''}><path d="${p}" ${extra}/></svg>`;
+}
+
+function articleSVG(seed){
+  const r=rnd(seed*13+5);
+  const lines=Array.from({length:7},(_,i)=>`<path d="M20 ${40+i*22}q60 ${(r()-.5)*20} 120 0t120 0 120 0" fill="none" stroke="#2E524E" stroke-width=".5" opacity="${.15+r()*.2}"/>`).join("");
+  return `<svg viewBox="0 0 420 260" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <rect width="420" height="260" fill="#E7DECB"/>
+    ${lines}
+    <g transform="translate(320 180)" opacity=".7"><circle r="40" fill="none" stroke="#B5945A" stroke-width=".6"/><circle r="30" fill="none" stroke="#B5945A" stroke-width=".4" opacity=".6"/><path d="M0 -36L6 -6 36 0 6 6 0 36 -6 6 -36 0 -6 -6z" fill="#B5945A" opacity=".55"/><path d="M0 -24L3 0 0 24 -3 0z" fill="#93502F"/></g>
+    <path d="M40 60c60-14 120 10 160 0s90-20 150 4" fill="none" stroke="#93502F" stroke-width=".8" opacity=".4"/>
+  </svg>`;
+}
+
+/* ---- render ---- */
+const heart='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.3-9.3-8.5C1 8 2.6 5 5.6 5 7.6 5 9 6.4 12 9c3-2.6 4.4-4 6.4-4 3 0 4.6 3 2.9 6.5C19 15.7 12 20 12 20z"/></svg>';
+
+document.getElementById("collGrid").innerHTML = MAPS.map((m,i)=>`
+  <article class="card rv rv-d${(i%3)+1}" data-tilt>
+    <div class="card-media">
+      ${m.tag?`<span class="card-tag ${m.sold?'sold':''}">${m.tag}</span>`:''}
+      <button class="card-fav" aria-label="Save">${heart}</button>
+      ${mapSVG(i+1,m.monster)}
+      <span class="card-frame"></span>
+    </div>
+    <div class="card-body">
+      <div class="card-region">${m.region}</div>
+      <h3 class="card-title">${m.title}</h3>
+      <div class="card-meta">${m.maker}</div>
+      <div class="card-foot">
+        <div class="card-price">${m.sold?'<small>Sold</small>':m.price}</div>
+        <a href="#" class="card-view">${m.sold?'Enquire':'View map'} →</a>
+      </div>
+    </div>
+  </article>`).join("");
+
+document.getElementById("contGrid").innerHTML = CONTINENTS.map(c=>`
+  <div class="cont">${contIcon(c.n)}<b>${c.n}</b><span>${c.c}</span></div>`).join("");
+
+document.getElementById("jrnlGrid").innerHTML = ARTICLES.map((a,i)=>`
+  <article class="article rv rv-d${i+1}">
+    <div class="article-media">${articleSVG(i+2)}</div>
+    <div class="article-cat">${a.cat}</div>
+    <h3>${a.title}</h3>
+    <div class="date">${a.date}</div>
+  </article>`).join("");
+
+/* ============ INTERACTIONS ============ */
+// nav shadow on scroll
+const nav=document.getElementById("nav");
+addEventListener("scroll",()=>nav.classList.toggle("scrolled",scrollY>20),{passive:true});
+
+// reveal on scroll
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}}),{threshold:.12,rootMargin:"0px 0px -8% 0px"});
+document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+
+// count-up stats
+function countUp(el){
+  const target=+el.dataset.count;let cur=0;const dur=1400,t0=performance.now();
+  function step(t){const p=Math.min((t-t0)/dur,1);const e=1-Math.pow(1-p,3);el.textContent=Math.round(e*target);if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+const cio=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){countUp(e.target);cio.unobserve(e.target)}}),{threshold:.6});
+document.querySelectorAll("[data-count]").forEach(el=>cio.observe(el));
+
+// card tilt (subtle)
+document.addEventListener("mousemove",e=>{},{passive:true});
+document.querySelectorAll("[data-tilt]").forEach(card=>{
+  card.addEventListener("mousemove",e=>{
+    const r=card.getBoundingClientRect();
+    const x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5;
+    card.style.transform=`translateY(-8px) perspective(900px) rotateX(${-y*3}deg) rotateY(${x*3}deg)`;
+  });
+  card.addEventListener("mouseleave",()=>{card.style.transform="";});
+});
+
+// mobile menu
+const mm=document.getElementById("mmenu");
+document.getElementById("burger").onclick=()=>{mm.classList.add("open");document.body.style.overflow="hidden";};
+const closeMM=()=>{mm.classList.remove("open");document.body.style.overflow="";};
+document.getElementById("mclose").onclick=closeMM;
+document.querySelectorAll("[data-mclose]").forEach(a=>a.onclick=closeMM);
+</script>
+</body>
+</html>
