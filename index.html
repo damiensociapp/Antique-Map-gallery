@@ -367,12 +367,39 @@ body::before{
   .wrap{padding:0 22px}
   .navlinks,.hero-scroll{display:none}
   .burger{display:flex}
-  .sec{padding:88px 0}
+  .sec{padding:80px 0}
   .grid,.jrnl-grid,.cont-grid{grid-template-columns:1fr}
-  .hero{padding:100px 0 76px;--lr:112px}
-  .hero-stats{flex-wrap:wrap;gap:20px 0}
-  .hero-stat{flex:1 0 45%}
-  .plani{right:-24%;width:130vw}
+  /* top bar — one compact line */
+  .topbar .wrap{gap:9px;height:34px;font-size:9px;letter-spacing:1.3px;white-space:nowrap;overflow:hidden}
+  .topbar svg{width:13px;height:13px}
+  .tb-b{display:none}
+  /* nav / brand — never wraps */
+  .nav .wrap{height:62px}
+  .brand{gap:10px}
+  .brand .mk{width:32px;height:32px}
+  .brand .bt b{font-size:14px;letter-spacing:.09em;white-space:nowrap}
+  .brand .bt span{font-size:7px;letter-spacing:2.2px;white-space:nowrap}
+  .navact{gap:4px}
+  .icon-btn{width:34px;height:34px}
+  .icon-btn svg{width:17px;height:17px}
+  /* hero */
+  .hero{min-height:auto;padding:54px 0 60px;--lr:118px}
+  .hero-top{margin-bottom:26px}
+  .hero h1{font-size:clamp(38px,10.6vw,54px)}
+  .hero h1 .l1{white-space:normal}
+  .hero-sub{margin-top:22px;font-size:16px}
+  .hero-cta{margin-top:30px}
+  .hero-stats{flex-wrap:wrap;gap:16px 0;margin-top:46px}
+  .hero-stat{flex:1 0 46%;padding:18px 18px 4px 0}
+  .hero-hint{display:none}
+  /* keep the map visible behind the text on mobile */
+  .hero-photo{transform:scale(1.16)}
+  .hero-grad{background:
+    linear-gradient(180deg,var(--ink) 0%,rgba(26,24,22,.5) 22%,rgba(26,24,22,.5) 58%,var(--ink) 100%),
+    radial-gradient(140% 80% at 50% 42%,rgba(26,24,22,.08) 0%,rgba(26,24,22,.68) 100%)}
+  .plani-dim{opacity:.4}
+  .hero.has-photo .plani-dim{opacity:.08}
+  .hero.has-photo .plani-lit{opacity:.42}
   .news-form{flex-direction:column}
   .foot-grid{grid-template-columns:1fr}
   .foot-bot{flex-direction:column;align-items:flex-start}
@@ -394,7 +421,7 @@ body::before{
 <div class="topbar">
   <div class="wrap">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2l7 3v6c0 4.5-3 8-7 11-4-3-7-6.5-7-11V5l7-3z"/><path d="M9 12l2 2 4-4"/></svg>
-    <span>Certificate of Authenticity with every map · Worldwide insured shipping · Est. 2023</span>
+    <span class="tb-txt"><span class="tb-a">Certificate of Authenticity</span><span class="tb-b"> with every map · Worldwide insured shipping · Est. 2023</span></span>
   </div>
 </div>
 
